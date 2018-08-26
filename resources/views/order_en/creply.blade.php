@@ -89,6 +89,7 @@ $(document).submit(function () {
                     @endif
                     <hr>
                 </div>
+                  @if(Auth::user()->status==1)
                 <form class="form-horizontal" method="post"  id="myform"
 
                       action="{{route('orders.creply.post')}}" role="form" style="
@@ -131,7 +132,9 @@ $(document).submit(function () {
                                 ">Replay </button>
                     </div>
                 </form>
-
+@else
+your account is block 
+@endif
 
                 <hr>
                 @foreach($replies as $r)

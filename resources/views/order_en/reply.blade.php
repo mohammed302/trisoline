@@ -90,6 +90,7 @@ $(document).ready(function () {
                 @endif
             <hr>
       </div>
+   @if(Auth::user()->status==1)
                 <form class="form-horizontal" method="post"  id="myform"
 
                       action="{{route('orders_en.reply.post')}}" role="form" style="
@@ -133,7 +134,10 @@ $(document).ready(function () {
             </div>
                 </form>
           
-           
+      @else
+your account is block 
+@endif
+     
             <hr>
             @foreach($replies as $r)
             @if($r->user_id!=0)

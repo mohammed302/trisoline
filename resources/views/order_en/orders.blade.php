@@ -5,7 +5,7 @@
  <div class="tick">   
       
       <div class="container">
-        <a href="{{route('fronten.index')}}" rel="home">
+        <a href="{{route('orders_en.index')}}" rel="home">
                                     <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
                                 </a>
           <h1><span style="color:red"> ORDERS</span></h1>

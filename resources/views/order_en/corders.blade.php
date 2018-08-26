@@ -13,6 +13,7 @@
 
         <thead >
           <tr class="bar">
+                 <th>number</th>
             <th>title</th>
             <th>replies</th>
           <th>status</th>
@@ -25,8 +26,9 @@
           @foreach($o->clinet_orders as $co)
          
           <tr>
+                <td>{{$co->id}}</td>
               <td>
-                  <a href="{{route('orders.creplies',$co->id)}}">
+                  <a href="{{route('orders_en.creplies',$co->id)}}">
                 
                 {{  $co->work->title_e}}
                 

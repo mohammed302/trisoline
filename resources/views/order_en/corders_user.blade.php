@@ -13,6 +13,7 @@
 
             <thead >
                 <tr class="bar">
+                         <th>number</th>
                     <th>title</th>
                     <th>replies</th>
                     <th>status</th>
@@ -25,6 +26,7 @@
 
 
                 <tr>
+                     <td>{{$co->id}}</td>
                     <td>
                         <a href="{{route('orders_en.creplies',$co->id)}}">
 
