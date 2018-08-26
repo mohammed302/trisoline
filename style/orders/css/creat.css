@@ -1,0 +1,49 @@
+
+body {
+    
+   
+    font-family: 'Cairo';
+}
+
+.hed h1 {
+    
+    text-align: center;
+    padding-bottom: 30px;
+    padding-top: 30px;
+}
+
+.open .form-control {
+    
+    padding: 0px 12px 0 0;
+}
+
+.open input {
+    
+    height: 40px;
+}
+
+.attachment .btn {
+    
+    margin: 20px 0;
+    border: 1px solid black;
+}
+
+.op .btn {
+    
+    margin: 30px 0;
+
+}
+
+.header .nav {
+    
+    
+    padding: 0 27px;
+    font-size: 24px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-group a {
+    
+    color: black;
+}
