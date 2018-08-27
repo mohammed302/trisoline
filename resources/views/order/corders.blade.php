@@ -18,7 +18,7 @@
             <th>الردود</th>
              <th>الحالة</th>
             <th>أخر تحديث</th>
-                   <th> اغلاق</th>
+            <th> اغلاق</th>
           </tr>
         </thead>
 
@@ -66,7 +66,7 @@
                         </a></td>
           </tr>
           @endforeach
-            @endforeach
+           @endforeach
         </tbody>
 
       </table>

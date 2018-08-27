@@ -166,7 +166,7 @@ class OrdersController extends Controller {
         $data['setting'] = Setting::find(1);
         $data['orders'] = Clinet_product::where('user_id', Auth::user()->id)
              //   ->withCount('clinet_replies')->
-                ->orderby('id', 'desc')->paginate(10);
+                ->orderby('id', 'desc')->get();
 
         return view('order.corders', $data);
     }
@@ -177,7 +177,7 @@ class OrdersController extends Controller {
         $data['setting'] = Setting::find(1);
         $data['orders'] = Client_order::where('user_id', Auth::user()->id)
                 ->withCount('replies')
-                ->orderby('id', 'desc')->paginate(10);
+                ->orderby('id', 'desc')->get();
 
         return view('order.corders_user', $data);
     }
