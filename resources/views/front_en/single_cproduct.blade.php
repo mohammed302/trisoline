@@ -141,7 +141,11 @@
                               
                                 <span class="flat-input"><textarea name="message" class="message" placeholder="Messages" required=""></textarea></span>
                                 @if(Auth::check())
-                                <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="Submit now"> طلب</button></span>
+                                @if(Auth::user()->id==$work->user_id)
+                                         <span class="flat-input"><button  id="noorder" type="button" class="flat-button"  > order</button></span>
+                                @else
+                                <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="Submit now"> order</button></span>
+                                @endif 
                                     @else
                                     <span class="flat-input"><button  id="nologin" type="button" class="flat-button"  > order</button></span>
                                 @endif
@@ -191,6 +195,9 @@
     <script>
         $( "#nologin" ).click(function() {
             toastr.error('Login');
+        });
+ $( "#noorder" ).click(function() {
+            toastr.error('this product for you you can not order it');
         });
 
 $('#order').validate({

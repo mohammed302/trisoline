@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
 
-        <title>طلب جديدة </title>
+        <title>تفاصيل الطلب  </title>
 
         <script src="{{asset('style/orders/js/jquery-3.1.1.min.js')}}"></script>
         <script src="{{asset('style/orders/js/jquery.nicescroll.min.js')}}"></script>
@@ -90,6 +90,7 @@ $(document).ready(function () {
                 @endif
             <hr>
       </div>
+@if(Auth::user()->status==1)
                 <form class="form-horizontal" method="post"  id="myform"
 
                       action="{{route('orders.reply.post')}}" role="form" style="
@@ -132,6 +133,9 @@ $(document).ready(function () {
 ">إضافة رد</button>
             </div>
                 </form>
+@else
+المستخدم محظور لا يمنكك الرد
+@endif
           
            
             <hr>

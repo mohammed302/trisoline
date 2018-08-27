@@ -205,6 +205,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'ctivity' => Kim\Activity\ActivityFacade::class,
         'Image' => Folklore\Image\Facades\Image::class,
+        'Pusher' => Pusher\Pusher::class,
     ],
 
 ];

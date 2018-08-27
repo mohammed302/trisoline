@@ -44,7 +44,10 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     //creplay 
     Route::get('creplies/{id}', 'OrdersController@creplies')->name('orders.creplies');
     Route::post('creply/', 'OrdersController@creply')->name('orders.creply.post');
-
+    //notifications
+     Route::get('notifications/', 'OrdersController@notification')->name('orders.notification');
+     //close order
+    Route::get('close/{id}', 'OrdersController@close')->name('orders.close');
     //order en
     //home page
     Route::get('/orders_en', 'OrdersEnController@index')->name('orders_en.index');
@@ -74,6 +77,11 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     //creplay 
     Route::get('creplies_en/{id}', 'OrdersEnController@creplies')->name('orders_en.creplies');
     Route::post('creply_en/', 'OrdersEnController@creply')->name('orders_en.creply.post');
+     //notifications
+     Route::get('notifications_en/', 'OrdersEnController@notification')->name('orders_en.notification');
+     
+      //close order
+    Route::get('close_en/{id}', 'OrdersENController@close')->name('orders_en.close');
 });
 // Ar
 
@@ -105,7 +113,7 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     Route::get('cproduct/', 'HomeController@cproducts')->name('front.cproducts');
         //cproduct details page
     Route::get('cproduct/{id}', 'HomeController@cproduct_Details')->name('front.cproduct.details');
-    Route::post('cproduct_order', 'HomeController@cproduct_order')->name('front.cproduct.order');
+    Route::get('cproduct_order', 'HomeController@cproduct_order')->name('front.cproduct.order');
     //bracnh page
    
     Route::get('branch/{id}', 'HomeController@branch')->name('front.branch');
@@ -275,12 +283,18 @@ Route::group(['prefix' => 'admin-cpx', 'namespace' => 'Admin'], function() {
 Route::group(['namespace' => 'Admin'], function() {
 
     Route::resource('admin-cpx/users', 'UserController');
+    //
+    Route::get('/admin-cpx/users/block/{id}','UserController@block')->name('users.block');
+    Route::get('/admin-cpx/users/unblock/{id}','UserController@unblock')->name('users.unblock');
+    //
     Route::resource('admin-cpx/services', 'ServiceController');
     Route::resource('admin-cpx/faqs', 'FaqController');
     Route::resource('admin-cpx/works', 'WorkController');
     Route::resource('admin-cpx/products', 'ProductController');
     Route::resource('admin-cpx/client_products', 'ClinetProductController');
     Route::get('/admin-cpx/accept/{id}','ClinetProductController@accept')->name('clientProduct.accept');
+     Route::get('/admin-cpx/reject/{id}','ClinetProductController@rejectPage')->name('clientProduct.rejectPage');
+    Route::post('/admin-cpx/reject/{id}','ClinetProductController@reject')->name('clientProduct.reject');
    
     Route::resource('admin-cpx/news', 'NewsController');
     Route::resource('admin-cpx/offers', 'OfferController');

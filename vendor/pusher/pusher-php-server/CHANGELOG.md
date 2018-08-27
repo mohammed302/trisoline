@@ -1,3 +1,46 @@
+## 3.2.0 (2018-08-13)
+
+[ADDED] This release adds support for end to end encrypted channels, a new feature for Channels. Read more [in our docs](https://pusher.com/docs/client_api_guide/client_encrypted_channels).
+
+[DEPRECATED] Renamed `encrypted` option to `useTLS` - `encrypted` will still work!
+
+## 3.1.0 (2018-08-13)
+
+[ADDED] This release adds Webhook validation as well as a data structure to store Webhook payloads.
+
+
+## 3.0.4 (2018-05-21)
+
+[FIXED] Non zero indexed arrays of channels no longer get serialized as an object.
+
+## 3.0.3 (2018-04-26)
+
+[ADDED] PSR-3 logger compatibility.
+
+[CHANGED] Improved PHP docs.
+
+## 3.0.2 (2018-04-23)
+
+[FIXED] Insufficient check for un-initialized curl resource.
+
+[FIXED] Acceptance tests.
+
+## 3.0.1 (2017-10-20)
+
+[CHANGED] Info messages are now prefixed with INFO and errors are now prefixed with ERROR.
+
+## 3.0.0 (2017-07-10)
+
+[NEW] Added namespaces (thanks [@vinkla](https://github.com/vinkla)).
+
+## 2.6.4 (2017-06-11)
+
+[FIXED] Log the curl error in more circumstances
+
+## 2.6.1 (2016-11-11)
+
+[FIXED] Check for correct status code when POSTing to native push notifications API.
+
 ## 2.6.0 (2016-08-23)
 
 [ADDED] support for publishing push notifications on up to 10 interests.
@@ -25,7 +68,9 @@
 ## 2.4.0 (2016-05-25)
 
 [ADDED] Support for batch events
+
 [ADDED] Curl options
+
 [FIXED] Applied fixes from StyleCI
 
 ## 2.3.0 (2015-02-16)
@@ -39,6 +84,7 @@
 ## 2.2.1 (2015-05-13)
 
 [FIXED] Channel name and socket_id values are now validated.
+
 [BROKE] Inadvertently broke PHP 5.2 compatibility by referencing a private method in array_walk.
 
 ## 2.2.0 (2015-01-20)
@@ -50,7 +96,9 @@ parameters are now deprecated.
 ## 2.1.3 (2012-12-22)
 
 [NEW] `$pusher->trigger` can now take an `array` of channel names as a first parameter to allow the same event to be published on multiple channels.
+
 [NEW] `$pusher->get` generic function can be used to make `GET` calls to the REST API
+
 [NEW] `$pusher->set_logger` to allow internal logging to be exposed and logged in your own logs.
 
 ## 2.1.2 (2012-11-18)
@@ -64,7 +112,9 @@ parameters are now deprecated.
 ## 2.1.0 (2012-09-28)
 
 [CHANGED] Renamed get_channel_stats to get_channel_info
+
 [CHANGED] get_channels now takes and $options parameter. get_channels( $options = array() )
+
 [REMOVED] get_presence_channels
 
 ## 2.0.1 (2012-09-18)

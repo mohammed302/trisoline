@@ -29,7 +29,7 @@
                     <td>
                         {{$p->title}}
                     </td>
-                    <td> @if($p->status==0)
+                    <td> @if($p->status==0 || $p->status==2)
                         لم تتم الموافقة
                         @else
                         تمت الموافقة
@@ -46,8 +46,8 @@
                            class="delete-post-link"
                            > <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
-                        <a href="{{route("works.edit",$p)}}" >
-                            <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                     <!--   <a href="{{route("works.edit",$p)}}" >
+                            <i class="fa fa-pencil" aria-hidden="true"></i></a>-->
                     </td>
                 </tr>
                 @endforeach

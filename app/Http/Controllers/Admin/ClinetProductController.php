@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Clinet_product;
 use App\Client_order;
+use App\Notification;
 use App\Setting;
 use Auth;
 use Image;
 
-class  ClinetProductController extends Controller {
+class ClinetProductController extends Controller {
 
     function __construct() {
         $this->middleware('auth:admin');
@@ -19,11 +20,11 @@ class  ClinetProductController extends Controller {
     ////index
     public function index() {
         $data['color'] = Setting::find(1);
-      
-            $data['products'] =  Clinet_product::orderby('id', 'desc')->get();
-      
 
-        
+        $data['products'] = Clinet_product::orderby('id', 'desc')->get();
+
+
+
 
         return view('admin.client_product.products', $data);
     }
@@ -45,7 +46,7 @@ class  ClinetProductController extends Controller {
             'desc' => 'required',
             'endesc' => 'required',
         ]);
-      
+
         $images = array();
         if ($files = $request->file('imgPath')) {
             foreach ($files as $file) {
@@ -56,7 +57,7 @@ class  ClinetProductController extends Controller {
             }
         }
 
-        $product = new  Clinet_product();
+        $product = new Clinet_product();
         $product->title = $request->title;
         $product->title_e = $request->title_e;
         $product->description = $request->desc;
@@ -76,7 +77,7 @@ class  ClinetProductController extends Controller {
 
     ////update  product
     public function edit($id) {
-        $data['product'] =  Clinet_product::findorfail($id);
+        $data['product'] = Clinet_product::findorfail($id);
         $data['color'] = Setting::find(1);
         return view('admin.client_product.updateProduct', $data);
     }
@@ -91,10 +92,10 @@ class  ClinetProductController extends Controller {
             'desc' => 'required',
             'endesc' => 'required',
         ]);
-          
+
         if ($request->imgPath != null) {
             print_r($request->imgPath);
-           // exit;
+            // exit;
             $images = array();
             if ($files = $request->file('imgPath')) {
                 foreach ($files as $file) {
@@ -107,20 +108,19 @@ class  ClinetProductController extends Controller {
         }
 
 
-        $product =  Clinet_product::findorfail($id);
+        $product = Clinet_product::findorfail($id);
         $product->title = $request->title;
         $product->title_e = $request->title_e;
         $product->description = $request->desc;
         $product->description_en = $request->endesc;
-     
+
         if ($request->imgPath != null) {
-            $old=    $product->img ;
-       
-           // exit;
-            $product->img =    $old.'|'. implode("|", $images);
-           
+            $old = $product->img;
+
+            // exit;
+            $product->img = $old . '|' . implode("|", $images);
         }
-        
+
         $product->update();
 
 
@@ -134,27 +134,46 @@ class  ClinetProductController extends Controller {
 
     ////delete  product
     public function destroy(Request $request, $id) {
-        Client_order::where('work_id',$id)->delete();
-        $product =  Clinet_product::findorfail($id);
+        Client_order::where('work_id', $id)->delete();
+        $product = Clinet_product::findorfail($id);
         $product->delete();
-    
     }
+
 //
-     ////accept  product
+    ////accept  product
     public function accept($id) {
-       $product =  Clinet_product::findorfail($id);
-       $product->status=1;
-       $product->save();
-    
-       
+        $product = Clinet_product::findorfail($id);
+        $product->status = 1;
+        $product->save();
+        $msg = new Notification();
+        $msg->user_id = $product->user_id;
+        $msg->content = 'تم قبول المنتج  ' . $product->title;
+        $msg->content_e = 'product accept ' . $product->title;
+        $msg->save();
     }
-    
-      ////reject  product
-    public function reject($id) {
-       $product =  Clinet_product::findorfail($id);
-       $product->status=2;
-       $product->save();
-    
-       
+
+    ////reject  product page
+    public function rejectPage($id) {
+        $data['product'] = Clinet_product::findorfail($id);
+        $data['color'] = Setting::find(1);
+        return view('admin.client_product.reject', $data);
     }
+
+    ////reject  product
+    public function reject(Request $request, $id) {
+        $product = Clinet_product::findorfail($id);
+        $product->status = 2;
+        $product->save();
+
+        $msg = new Notification();
+        $msg->user_id = $product->user_id;
+        $msg->content = 'تم رفض المنتج  ' . $product->title . 'بسبب' . $request->name;
+        $msg->content_e = 'product not  accept ' . $product->title . ' ' . $request->name;
+        $msg->save();
+        $request->session()->flash('alert-success', 'تم بنجاح');
+
+
+        return redirect()->back();
+    }
+
 }

@@ -141,8 +141,12 @@
                               
                                 <span class="flat-input"><textarea name="message" class="message" placeholder="Messages" required=""></textarea></span>
                                 @if(Auth::check())
+                                @if(Auth::user()->id==$work->user_id)
+                                         <span class="flat-input"><button  id="noorder" type="button" class="flat-button"  > طلب</button></span>
+                                @else
                                 <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="Submit now"> طلب</button></span>
-                                    @else
+                                @endif 
+                                @else
                                     <span class="flat-input"><button  id="nologin" type="button" class="flat-button"  > طلب</button></span>
                                 @endif
                             </form>
@@ -192,6 +196,9 @@
         $( "#nologin" ).click(function() {
             toastr.error('قم بتسجيل الدخول لطلب الخدمة');
         });
+        $( "#noorder" ).click(function() {
+            toastr.error('هذا المنتج خاص بك لا يمكنك طلبه');
+        });
 
 $('#order').validate({
 rules: {
@@ -219,7 +226,7 @@ headers: {
 });
 $.ajax({
 url: "{{route('front.cproduct.order')}}",
-type: 'POST',
+type: 'get',
 data: {_token: _token, message: msg, work_id: id},
 success: function (data) {
     toastr.success('تم الطلب بنجاح');

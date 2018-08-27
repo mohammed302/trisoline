@@ -43,7 +43,7 @@ $(document).submit(function () {
         <div class="tics">
             <div class="container">
                 <br>
-                <a href="{{route('order.index')}}" rel="home">
+                <a href="{{route('orders.index')}}" rel="home">
                     <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
                 </a>
                 <div class="tic-p">
@@ -90,6 +90,7 @@ $(document).submit(function () {
                     @endif
                     <hr>
                 </div>
+                @if(Auth::user()->status==1)
                 <form class="form-horizontal" method="post"  id="myform"
 
                       action="{{route('orders.creply.post')}}" role="form" style="
@@ -133,7 +134,9 @@ $(document).submit(function () {
                     </div>
                 </form>
 
-
+@else
+المستخدم محظور لا يمنكك الرد
+@endif
                 <hr>
                 @foreach($replies as $r)
                 @if($r->user_id!=0)

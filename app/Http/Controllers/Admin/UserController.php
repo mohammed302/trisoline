@@ -152,5 +152,25 @@ class UserController extends Controller {
             return "delete failed";
         }
     }
+    
+    
+     public function block($user) {
+
+        
+        $user = User::findorfail($user);
+        $user->status =0;
+        $user->update();
+      
+    }
+    
+    
+      public function unblock($user) {
+
+        
+        $user = User::findorfail($user);
+        $user->status =1;
+        $user->update();
+      
+    }
 
 }

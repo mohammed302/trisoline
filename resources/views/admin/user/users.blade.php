@@ -36,6 +36,7 @@
                         <th >الاسم</th>
                         <th >البريد</th>
                         <th >الهاتف</th>
+                        <th >الحالة</th>
                         <th>خيارات</th>
                     </tr>
                 </thead>
@@ -50,8 +51,17 @@
                         </td>
                         <td  class='noter' data-title="البريد الإلكتروني">{{$c->email }}</td>
                         <td  class='noter' data-title=" رقم الهاتف">{{$c->tel }}</td>
+                        <td  class='noter' data-title=" الحالة ">
+                            @if($c->status==1)
+                           مفعل
+                            @else
+                            محظور
+                            @endif
+                            
+                            
+                        </td>
                         <td data-title="خيارات">
-@if(sizeof($c->orders)==0)
+                            @if(sizeof($c->orders)==0)
 
                             <a 
                                 data-token="{{ csrf_token() }}" 
@@ -60,14 +70,29 @@
                                 class="delete-post-link"
                                 > <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
-@else
-المستخدم لديه طلبات لايمكن حذفه
-@endif
+                            @else
+                            المستخدم لديه طلبات لايمكن حذفه
+                            @endif
                             <a href="{{route("users.edit",["user" =>$c])}}" >
                                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
-
-
-
+  @if($c->status==1)
+                            <a 
+                                data-token="{{ csrf_token() }}" 
+                                value='{{route("users.block",["user" =>$c])}}'
+                                data-id="{{ $c->id }}" 
+                                class="block-post-link"
+                                > حظر
+                            </a>
+  @endif
+    @if($c->status==0)
+                             <a 
+                                data-token="{{ csrf_token() }}" 
+                                value='{{route("users.unblock",["user" =>$c])}}'
+                                data-id="{{ $c->id }}" 
+                                class="unblock-post-link"
+                                > رفع الحظر
+                            </a>
+  @endif
                         </td>
                     </tr>
                     <?php $co++; ?>
@@ -121,6 +146,103 @@ $('.delete-post-link').on('click', function (e) {
         } else {
             //   t=1;
             swal("تم الالغاء", "تم الغاء الحذف", "error");
+
+
+        }
+    }
+    );
+
+
+
+
+});
+$('.block-post-link').on('click', function (e) {
+    var that = this;
+
+    swal({
+        title: "هل انت متاكد",
+        text: "هل تريد حظر المستخدم؟",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: '#DD6B55',
+        confirmButtonText: "نعم!",
+        cancelButtonText: "لا!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+    function (isConfirm) {
+        if (isConfirm) {
+            var country = $(that).attr("value")
+
+            $.ajax({
+                method: 'get',
+                url: $(that).attr('value'),
+                data: {
+                    _token: $(that).data('token')
+                },
+                success: function (data) {
+
+
+                    swal("تم الحظر!", "تم حظر  بنجاح.", "success");
+
+                  
+
+
+                }
+
+            });
+        } else {
+            //   t=1;
+            swal("تم الحظر", "تم الغاء الحظر", "error");
+
+
+        }
+    }
+    );
+
+
+
+
+});
+$('.unblock-post-link').on('click', function (e) {
+    var that = this;
+
+    swal({
+        title: "هل انت متاكد",
+        text: "هل تريد الغاء الحظر المستخدم؟",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: '#DD6B55',
+        confirmButtonText: "نعم!",
+        cancelButtonText: "لا!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+    },
+    function (isConfirm) {
+        if (isConfirm) {
+            var country = $(that).attr("value")
+
+            $.ajax({
+                method: 'get',
+                url: $(that).attr('value'),
+                data: {
+                    _token: $(that).data('token')
+                },
+                success: function (data) {
+
+
+                    swal("تم الغاء الحظر!", "تم الغاء الحظر  بنجاح.", "success");
+
+                  
+
+                }
+
+            });
+        } else {
+            //   t=1;
+            swal("تم الالغاء", "تم الغاء الغاء الحظر", "error");
 
 
         }

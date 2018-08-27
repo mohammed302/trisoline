@@ -23,7 +23,9 @@ use App\Slider;
 use App\Product;
 use App\Client_order;
 use App\Clinet_product;
+use App\Notification;
 use Illuminate\Support\Facades\Mail;
+use App\Events\NotificationEvent;
 use Carbon;
 use DB;
 
@@ -194,11 +196,23 @@ class HomeController extends Controller {
             $order->message = $request->message;
 
             $order->save();
-
+            $pr=  Clinet_product::findorfail($request->work_id);
+             $msg=new Notification();
+            
+                $msg->user_id=$pr->user_id;
+                
+                $msg->content='هناك طلب جديد للمنتج # '.$pr->title;
+                 $msg->content_e='new order for product '.$pr->title_e;
+                $msg->save();
             //
 
-
-
+                $message = [
+                    "id" => $pr->user_id,
+                    "sourceuserid" => Auth::user()->id,
+                    "name" => Auth::user()->name,
+                    "message" => ' طلب جديد من'
+                ];
+               event(new NotificationEvent($message));
             $request->session()->flash('alert-success', 'تم بنجاح');
 
 

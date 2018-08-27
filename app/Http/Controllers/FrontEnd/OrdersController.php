@@ -15,6 +15,7 @@ use App\Clinet_reply;
 use Carbon;
 use Image;
 use App\Clinet_product;
+use App\Notification;
 
 class OrdersController extends Controller {
 
@@ -28,9 +29,21 @@ class OrdersController extends Controller {
         $data['allproduct'] = Clinet_product::where('user_id',Auth::user()->id)->count();
         $data['acceptproduct'] = Clinet_product::where('user_id',Auth::user()->id)->
                 where('status',1)->count();
+        $data['notification'] = Notification::where('user_id',Auth::user()->id)->where('status',0)->count();
         return view('order.home', $data);
     }
-
+  //notification
+    function notification() {
+        $data['setting'] = Setting::find(1);
+        $data['notification'] = Notification::where('user_id',Auth::user()->id)
+                ->orderby('id', 'desc')->paginate(10);
+       $no= Notification::where('status',0)->get();
+       foreach ($no as $n){
+       $n->status=1;
+       $n->update();
+       }
+        return view('order.notification', $data);
+    }
     //new orders
     function newOrderPage() {
         $data['setting'] = Setting::find(1);
@@ -120,6 +133,19 @@ class OrdersController extends Controller {
             }
             $reply->time = $mytime = Carbon\Carbon::now();
             $reply->save();
+              //
+                $order = Order::findorfail($request->id);
+                $msg=new Notification();
+                if(Auth::user()->id!=$order->work->user_id){
+                $msg->user_id=$order->work->user_id;}
+                else{
+                      $msg->user_id=$order->user_id; 
+                    
+                }
+                $msg->content='رسالة جديدة خاصة بطلب رقم# '.$request->id;
+                $msg->content_e='new massage in order number# '.$request->id;
+                $msg->save();
+                //
             $request->session()->flash('alert-success', 'تم بنجاح');
             return redirect()->back();
         }
@@ -198,6 +224,18 @@ class OrdersController extends Controller {
             }
             $reply->time = $mytime = Carbon\Carbon::now();
             $reply->save();
+              //
+                $order = Client_order::findorfail($request->id);
+                $msg=new Notification();
+              if(Auth::user()->id!=$order->work->user_id){
+                $msg->user_id=$order->work->user_id;}
+                else{
+                      $msg->user_id=$order->user_id; 
+                    
+                }
+                $msg->content='رسالة جديدة خاصة بطلب رقم# '.$request->id;
+                 $msg->content_e='new massage in order number# '.$request->id;
+                $msg->save();
             $request->session()->flash('alert-success', 'تم بنجاح');
             return redirect()->back();
         }
@@ -313,5 +351,11 @@ class OrdersController extends Controller {
          $clinet_product =  Clinet_product::findorfail($id);
          $clinet_product->delete();
     }
+ ////close   Clinet_order
+    public function close(Request $request, $id) {
 
+         $clinet_order = Client_order::findorfail($id);
+         $clinet_order->status=2;
+         $clinet_order->save();
+    }
 }

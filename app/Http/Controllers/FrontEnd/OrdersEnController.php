@@ -15,6 +15,7 @@ use Image;
 use App\Clinet_product;
 use App\Clinet_reply;
 use App\Client_order;
+use App\Notification;
 
 class OrdersEnController extends Controller {
 
@@ -28,9 +29,21 @@ class OrdersEnController extends Controller {
         $data['allproduct'] = Clinet_product::where('user_id', Auth::user()->id)->count();
         $data['acceptproduct'] = Clinet_product::where('user_id', Auth::user()->id)->
                         where('status', 1)->count();
+        $data['notification'] = Notification::where('user_id', Auth::user()->id)->where('status', 0)->count();
         return view('order_en.home', $data);
     }
-
+//notification
+      function notification() {
+        $data['setting'] = Setting::find(1);
+        $data['notification'] = Notification::where('user_id',Auth::user()->id)
+                ->orderby('id', 'desc')->paginate(10);
+       $no= Notification::where('status',0)->get();
+       foreach ($no as $n){
+       $n->status=1;
+       $n->update();
+       }
+        return view('order_en.notification', $data);
+    }
     //new orders
     function newOrderPage() {
         $data['setting'] = Setting::find(1);
@@ -120,44 +133,57 @@ class OrdersEnController extends Controller {
             }
             $reply->time = $mytime = Carbon\Carbon::now();
             $reply->save();
+            //
+            $order = Order::findorfail($request->id);
+            $msg = new Notification();
+            if (Auth::user()->id != $order->work->user_id) {
+                $msg->user_id = $order->work->user_id;
+            } else {
+                $msg->user_id = $order->user_id;
+            }
+            $msg->content = 'رسالة جديدة خاصة بطلب رقم# ' . $request->id;
+            $msg->content_e = 'new massage in order number# ' . $request->id;
+            $msg->save();
             $request->session()->flash('alert-success', 'Done ');
             return redirect()->back();
         }
     }
-    
-      ////index
-    public function  clinet_product() {
-       
-       $data['setting'] = Setting::find(1);
-      $data['products'] =  Clinet_product::where('user_id',Auth::user()->id)->orderby('id', 'desc')->get();
-      
+
+    ////index
+    public function clinet_product() {
+
+        $data['setting'] = Setting::find(1);
+        $data['products'] = Clinet_product::where('user_id', Auth::user()->id)->orderby('id', 'desc')->get();
+
 
         return view('order_en.products', $data);
     }
- ////corders
+
+    ////corders
     public function corders() {
 
 
         $data['setting'] = Setting::find(1);
         $data['orders'] = Clinet_product::where('user_id', Auth::user()->id)
-             //   ->withCount('clinet_replies')->
-                ->orderby('id', 'desc')->paginate(10);
+                        //   ->withCount('clinet_replies')->
+                        ->orderby('id', 'desc')->paginate(10);
 
         return view('order_en.corders', $data);
     }
-     ////orders user
+
+    ////orders user
     public function corders_user() {
 
 
         $data['setting'] = Setting::find(1);
         $data['orders'] = Client_order::where('user_id', Auth::user()->id)
-                ->withCount('replies')
-                ->orderby('id', 'desc')->paginate(10);
+                        ->withCount('replies')
+                        ->orderby('id', 'desc')->paginate(10);
 
         return view('order_en.corders_user', $data);
     }
-    
-      ////creplies
+
+    ////creplies
     public function creplies($id) {
         $data['setting'] = Setting::find(1);
         $data['order'] = Client_order::findorfail($id);
@@ -166,8 +192,9 @@ class OrdersEnController extends Controller {
 
         return view('order_en.creply', $data);
     }
+
     // reply
-        function creply(Request $request) {
+    function creply(Request $request) {
         if (Auth::check()) {
             $this->validate($request, [
                 'reply' => 'required',
@@ -199,10 +226,22 @@ class OrdersEnController extends Controller {
             }
             $reply->time = $mytime = Carbon\Carbon::now();
             $reply->save();
+            //
+            $order = Client_order::findorfail($request->id);
+            $msg = new Notification();
+            if (Auth::user()->id != $order->work->user_id) {
+                $msg->user_id = $order->work->user_id;
+            } else {
+                $msg->user_id = $order->user_id;
+            }
+            $msg->content = 'رسالة جديدة خاصة بطلب رقم# ' . $request->id;
+            $msg->content_e = 'new massage in order number# ' . $request->id;
+            $msg->save();
             $request->session()->flash('alert-success', ' Done');
             return redirect()->back();
         }
     }
+
     ////add product
     public function create() {
 
@@ -220,7 +259,7 @@ class OrdersEnController extends Controller {
             'desc' => 'required',
             'endesc' => 'required',
         ]);
-      
+
         $images = array();
         if ($files = $request->file('imgPath')) {
             foreach ($files as $file) {
@@ -231,15 +270,15 @@ class OrdersEnController extends Controller {
             }
         }
 
-         $clinet_product = new  Clinet_product();
-         $clinet_product->title = $request->title;
-         $clinet_product->title_e = $request->title_e;
-         $clinet_product->description = $request->desc;
-         $clinet_product->description_en = $request->endesc;
-         $clinet_product->status =0;
-         $clinet_product->user_id =Auth::user()->id;
-         $clinet_product->img = implode("|", $images); //$input['imagename'];
-         $clinet_product->save();
+        $clinet_product = new Clinet_product();
+        $clinet_product->title = $request->title;
+        $clinet_product->title_e = $request->title_e;
+        $clinet_product->description = $request->desc;
+        $clinet_product->description_en = $request->endesc;
+        $clinet_product->status = 0;
+        $clinet_product->user_id = Auth::user()->id;
+        $clinet_product->img = implode("|", $images); //$input['imagename'];
+        $clinet_product->save();
 
 
 
@@ -252,7 +291,7 @@ class OrdersEnController extends Controller {
 
     ////update  work
     public function edit($id) {
-        $data['work'] =  Clinet_product::findorfail($id);
+        $data['work'] = Clinet_product::findorfail($id);
         $data['color'] = Setting::find(1);
         return view('admin.work.update Clinet_product', $data);
     }
@@ -267,10 +306,10 @@ class OrdersEnController extends Controller {
             'desc' => 'required',
             'endesc' => 'required',
         ]);
-          
+
         if ($request->imgPath != null) {
             print_r($request->imgPath);
-           // exit;
+            // exit;
             $images = array();
             if ($files = $request->file('imgPath')) {
                 foreach ($files as $file) {
@@ -283,21 +322,20 @@ class OrdersEnController extends Controller {
         }
 
 
-         $clinet_product =  Clinet_product::findorfail($id);
-         $clinet_product->title = $request->title;
-         $clinet_product->title_e = $request->title_e;
-         $clinet_product->description = $request->desc;
-         $clinet_product->description_e = $request->endesc;
-         $clinet_product->branch = $request->branch;
+        $clinet_product = Clinet_product::findorfail($id);
+        $clinet_product->title = $request->title;
+        $clinet_product->title_e = $request->title_e;
+        $clinet_product->description = $request->desc;
+        $clinet_product->description_e = $request->endesc;
+        $clinet_product->branch = $request->branch;
         if ($request->imgPath != null) {
-            $old=     $clinet_product->img ;
-       
-           // exit;
-             $clinet_product->img =    $old.'|'. implode("|", $images);
-           
+            $old = $clinet_product->img;
+
+            // exit;
+            $clinet_product->img = $old . '|' . implode("|", $images);
         }
-        
-         $clinet_product->update();
+
+        $clinet_product->update();
 
 
 
@@ -311,9 +349,16 @@ class OrdersEnController extends Controller {
     ////delete   Clinet_product
     public function destroy(Request $request, $id) {
 
-         $clinet_product =  Clinet_product::findorfail($id);
-         $clinet_product->delete();
+        $clinet_product = Clinet_product::findorfail($id);
+        $clinet_product->delete();
     }
+    
+    ////close   Clinet_order
+    public function close(Request $request, $id) {
 
+         $clinet_order = Client_order::findorfail($id);
+         $clinet_order->status=2;
+         $clinet_order->save();
+    }
 
 }

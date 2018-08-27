@@ -25,7 +25,7 @@ class Client_order extends Model
         return $this->hasMany('App\Clinet_reply', 'order_id', 'id');
     }
     
- public function emp()
+     public function emp()
     {
 
         return $this->hasOne('App\User', 'id', 'emp_id');

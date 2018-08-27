@@ -76,12 +76,18 @@
 
                             <a href="{{route("client_products.edit",$c)}}" >
                                 <i class="fa fa-eye" aria-hidden="true"></i></a>
-                            @if($c->status==0)
+                            @if($c->status==0 || $c->status==2)
                             <a href="#"	value="{{route("clientProduct.accept",$c)}}"
                                data-token="{{ csrf_token() }}"
                                data-id="{{ $c->id }}" 
                                class="accept-post-link"
                                >موافقة
+                            </a>
+                            @else
+                            <a href="{{route("clientProduct.rejectPage",$c)}}"	
+                          
+                               class="reject-post-link"
+                               >رفض
                             </a>
                             @endif
 

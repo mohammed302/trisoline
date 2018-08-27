@@ -13,10 +13,12 @@
 
         <thead >
           <tr class="bar">
+            <th>رقم الطلب</th>
             <th>الموضوع</th>
-            <th>الردود</th>
-          <th>الحالة</th>
+             <th>الردود</th>
+             <th>الحالة</th>
             <th>أخر تحديث</th>
+      
           </tr>
         </thead>
 
@@ -25,6 +27,7 @@
    
          
           <tr>
+              <td>{{$co->id}}</td>
               <td>
                   <a href="{{route('orders.creplies',$co->id)}}">
                 
@@ -53,7 +56,7 @@
                           {{ Carbon\Carbon::parse($co->created_at)->diffForHumans() }}
                           @endif
                             </span>
-              </td>
+            
           </tr>
           @endforeach
            
