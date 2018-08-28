@@ -36,7 +36,12 @@
 
     <!-- Favicon and touch icons  -->
     <style>
-          
+     .caret{
+        display: none !important;
+    }
+    #mainnav.style2 ul.menu > li > a:hover{
+        text-decoration: none !important;
+    }       
     #slideshow { 
     margin: 50px auto; 
     position: relative; 

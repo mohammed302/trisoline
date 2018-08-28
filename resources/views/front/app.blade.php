@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('style/web/stylesheets/bootstrap.css')}}">
 
     <!-- Theme Style -->
-    <link rel="stylesheet" type="text/css" href="{{asset('style/web/stylesheets/style.css?v=2')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('style/web/stylesheets/style.css?v=3')}}">
 
     <!-- Responsive -->
     <link rel="stylesheet" type="text/css" href="{{asset('style/web/stylesheets/responsive.css')}}">
@@ -38,6 +38,12 @@
 
     <link href="{{asset('style/web/icon/favicon.png')}}" rel="icon">
 <style>
+    .caret{
+        display: none !important;
+    }
+    #mainnav.style2 ul.menu > li > a:hover{
+        text-decoration: none !important;
+    }
     #mainnav ul.submenu{
         margin-top: 0;
     }
