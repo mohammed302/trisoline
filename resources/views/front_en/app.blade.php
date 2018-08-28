@@ -472,7 +472,7 @@ product-slider { padding: 45px; }
                             @endif" ><a href="{{route('fronten.works')}}">Projects</a></li>
                                <li  class=" @if(Request::segment(2)=='works' )
                             active
-                            @endif" ><a href="{{route('fronten.cproducts')}}">Clinet Product</a></li>
+                            @endif" ><a href="{{route('fronten.cproducts')}}"> Products</a></li>
                                         <li  class=" @if(Request::segment(2)=='branch' )
                             active
                             @endif "><a >Branch</a>

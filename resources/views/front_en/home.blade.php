@@ -149,7 +149,7 @@
           <div class="row">
                 <div class="col-md-12">  
                     <div class="title-section style3 text-center">
-                        <h1 class="title">Contact usا</h1>
+                        <h1 class="title">Contact us</h1>
                     </div>          
                 </div>
             </div>

@@ -1,5 +1,5 @@
 @extends('front_en.app')
-@section('title', '|   clinet product ')
+@section('title', '|    product ')
 @section('content')
     <!-- Page title -->
     <div class="page-title parallax parallax1">
@@ -10,7 +10,7 @@
                     <div class="page-title-heading">
                         <h1 class="title">
                             
-                      clinet product 
+                       product 
                               
                      </h1>
                     </div><!-- /.page-title-captions -->  
@@ -18,7 +18,7 @@
                         <ul>
                             <li class="home"><i class="fa fa-home"></i><a href="{{route('fronten.index')}}">Home </a></li>
                             <li>
-                                       clinet product 
+                                        product 
                         </ul>                   
                     </div><!-- /.breadcrumbs --> 
                 </div><!-- /.col-md-12 -->  
