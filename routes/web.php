@@ -35,6 +35,9 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     // new_product
     Route::get('/new_product', 'OrdersController@create')->name('orders.new_product');
     Route::post('/store', 'OrdersController@store')->name('orders.new_product.store');
+     // update product
+    Route::get('/updateProduct/{id}', 'OrdersController@edit')->name('orders.new_product.edit');
+    Route::post('/updateProduct/{id}', 'OrdersController@update')->name('orders.new_product.update');
     // delete product
     Route::get('/destroy/{id}', 'OrdersController@destroy')->name('orders.new_product.destroy');
       // my orders page
@@ -48,6 +51,8 @@ Route::group(['namespace' => 'FrontEnd'], function() {
      Route::get('notifications/', 'OrdersController@notification')->name('orders.notification');
      //close order
     Route::get('close/{id}', 'OrdersController@close')->name('orders.close');
+        //delete image
+      Route::get('images/{images}','OrdersController@deleteimg')->name('img.delete');
     //order en
     //home page
     Route::get('/orders_en', 'OrdersEnController@index')->name('orders_en.index');
@@ -68,6 +73,9 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     // new_product
     Route::get('/new_product_en', 'OrdersEnController@create')->name('orders_en.new_product');
     Route::post('/store_en', 'OrdersEnController@store')->name('orders_en.new_product.store');
+     // update product
+    Route::get('/updateProduct_en/{id}', 'OrdersEnController@edit')->name('orders_en.new_product.edit');
+    Route::post('/updateProduct_en/{id}', 'OrdersEnController@update')->name('orders_en.new_product.update');
     // delete product
     Route::get('/destroy_en/{id}', 'OrdersEnController@destroy')->name('orders_en.new_product.destroy');
        // my orders page
@@ -82,6 +90,9 @@ Route::group(['namespace' => 'FrontEnd'], function() {
      
       //close order
     Route::get('close_en/{id}', 'OrdersENController@close')->name('orders_en.close');
+    
+      Route::get('images_en/{images}','OrdersEnController@deleteimg')->name('img_en.delete');
+
 });
 // Ar
 
@@ -276,6 +287,8 @@ Route::group(['prefix' => 'admin-cpx', 'namespace' => 'Admin'], function() {
     Route::get('clinet_orders/destroy/{id}', 'ClinetOrderController@destroy')->name('clinet.order.destroy');
     Route::get('/creplies/{id}', 'ClinetOrderController@replies')->name('clinet.order.replies');
     Route::get('clinet_orders/destroy_replay/{id}', 'ClinetOrderController@destroy_replay')->name('clinet.order.destroy_replay');
+    Route::post('creply/', 'ClinetOrderController@reply')->name('clinet.order.creply.post');
+    
 });
 
 
@@ -295,6 +308,7 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::get('/admin-cpx/accept/{id}','ClinetProductController@accept')->name('clientProduct.accept');
      Route::get('/admin-cpx/reject/{id}','ClinetProductController@rejectPage')->name('clientProduct.rejectPage');
     Route::post('/admin-cpx/reject/{id}','ClinetProductController@reject')->name('clientProduct.reject');
+  
    
     Route::resource('admin-cpx/news', 'NewsController');
     Route::resource('admin-cpx/offers', 'OfferController');

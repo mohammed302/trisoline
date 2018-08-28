@@ -69,8 +69,8 @@
 	</div>
 </div>   
                 <div class="button-m"> 
-                    <a  href="{{route('orders.new')}}" class="btn btn-default" role="button"> طلب جديد </a>
-                    <a  href="{{route('orders.myoreders')}}" class="btn btn-default" role="button">الطلبات </a>
+                    <a  href="{{route('orders.new')}}" class="btn btn-default" role="button">  فتح تذكرة </a>
+                    <a  href="{{route('orders.myoreders')}}" class="btn btn-default" role="button">التذاكر </a>
                      <a  href="{{route('orders.mycoreders_user')}}" class="btn btn-default" role="button">طلبات المنتجات</a>
                     <a  href="{{route('orders.clinet_product')}}" class="btn btn-default" role="button">المنتجات </a>
                  

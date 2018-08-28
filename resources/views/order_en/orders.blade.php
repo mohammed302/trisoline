@@ -8,7 +8,7 @@
         <a href="{{route('orders_en.index')}}" rel="home">
                                     <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
                                 </a>
-          <h1><span style="color:red"> ORDERS</span></h1>
+          <h1><span style="color:red"> tickets</span></h1>
           <table class="table table-bordered table-hover">
 
         <thead >

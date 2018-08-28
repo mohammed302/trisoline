@@ -5,7 +5,7 @@
 
         <meta charset="utf-8">
 
-        <title>new order </title>
+        <title>new ticket </title>
 
         <script src="{{asset('style/orders/js/jquery-3.1.1.min.js')}}"></script>
         <script src="{{asset('style/orders/js/jquery.nicescroll.min.js')}}"></script>
@@ -39,13 +39,13 @@ $(document).submit(function () {
 
         <div class="header">
             <br>
-            <a href="{{route('fronten.index')}}" rel="home" style="
+            <a href="{{route('orders_en.index')}}" rel="home" style="
                margin-left: 24px;
                ">
                 <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
             </a>
             <div class="hed">  
-                <h1>new  <span style="color:red"> order </span></h1>
+                <h1>new  <span style="color:red"> ticket </span></h1>
             </div>
             @if (count($errors) > 0)
             <div class="alert alert-danger">

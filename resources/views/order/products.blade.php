@@ -10,7 +10,9 @@
         </a>
         <h1>قسم<span style="color:red"> منتجاتي</span></h1>
             <div class="button-m">  
-        <a  href="{{route('orders.new_product')}}" class="btn btn-default" role="button">اضافة منتج جديد </a>
+      @if(Auth::user()->status==1)
+                <a  href="{{route('orders.new_product')}}" class="btn btn-default" role="button">اضافة منتج جديد </a>
+           @endif
             </div>
         <table class="table table-bordered table-hover">
 
@@ -46,8 +48,8 @@
                            class="delete-post-link"
                            > <i class="fa fa-trash" aria-hidden="true"></i>
                         </a>
-                     <!--   <a href="{{route("works.edit",$p)}}" >
-                            <i class="fa fa-pencil" aria-hidden="true"></i></a>-->
+                       <a href="{{route("orders.new_product.edit",$p)}}" >
+                            <i class="fa fa-pencil" aria-hidden="true"></i></a>
                     </td>
                 </tr>
                 @endforeach

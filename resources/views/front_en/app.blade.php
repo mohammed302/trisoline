@@ -695,7 +695,10 @@ product-slider { padding: 45px; }
                              <span class="flat-input"><input name="tel"  type="text" placeholder="Tel" required="required"></span>
                                 <span class="flat-input"><input name="remail"  type="email" placeholder="Email" required="required"></span>
                                 <span class="flat-input"><input name="rpassword"  type="password" placeholder="Password"></span>
-                                <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="انشاء حساب">create </button></span>
+                                 <div class="checkbox">
+  <label><input type="checkbox" value="" name='condition'>  Agree conditions  </label>
+</div>
+                                <span class="flat-input"><button name="submit" type="submit" class="flat-button"  >create </button></span>
                             </form>
                         </div>      
                     </div>
@@ -834,6 +837,9 @@ $('#registerform').validate({
          rname: {
             required: true,
            
+        },
+        condition:{
+           required: true,    
         },
         remail: {
             required: true,

@@ -157,7 +157,7 @@ your account is block
                 <div class="ch-ad">
 
                     <div class="im">
-                        <a><img src="{{asset('style/orders/imag/ico.jpg')}}" width="40px" height="40px"> {{$r->emp->name}}
+                        <a><img src="{{asset('style/orders/imag/ico.jpg')}}" width="40px" height="40px"> Manger
                             @if($r->emp->type==3)
                             <br>قسم:{{$r->emp->dep->name}}
                             @endif

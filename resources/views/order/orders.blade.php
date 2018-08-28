@@ -8,7 +8,7 @@
         <a href="{{route('orders.index')}}" rel="home">
                                     <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
                                 </a>
-          <h1>قسم<span style="color:red"> الطلبات</span></h1>
+          <h1>قسم<span style="color:red"> التذاكر</span></h1>
           <table class="table table-bordered table-hover">
 
         <thead >

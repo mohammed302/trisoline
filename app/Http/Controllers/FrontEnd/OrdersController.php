@@ -37,7 +37,7 @@ class OrdersController extends Controller {
         $data['setting'] = Setting::find(1);
         $data['notification'] = Notification::where('user_id',Auth::user()->id)
                 ->orderby('id', 'desc')->paginate(10);
-       $no= Notification::where('status',0)->get();
+       $no= Notification::where('user_id',Auth::user()->id)->where('status',0)->get();
        foreach ($no as $n){
        $n->status=1;
        $n->update();
@@ -227,7 +227,7 @@ class OrdersController extends Controller {
               //
                 $order = Client_order::findorfail($request->id);
                 $msg=new Notification();
-              if(Auth::user()->id!=$order->work->user_id){
+                if(Auth::user()->id!=$order->work->user_id){
                 $msg->user_id=$order->work->user_id;}
                 else{
                       $msg->user_id=$order->user_id; 
@@ -289,9 +289,9 @@ class OrdersController extends Controller {
 
     ////update  work
     public function edit($id) {
-        $data['work'] =  Clinet_product::findorfail($id);
-        $data['color'] = Setting::find(1);
-        return view('admin.work.update Clinet_product', $data);
+        $data['product'] =  Clinet_product::findorfail($id);
+         $data['setting'] = Setting::find(1);
+        return view('order.updateProduct', $data);
     }
 
     public function update(Request $request, $id) {
@@ -324,8 +324,8 @@ class OrdersController extends Controller {
          $clinet_product->title = $request->title;
          $clinet_product->title_e = $request->title_e;
          $clinet_product->description = $request->desc;
-         $clinet_product->description_e = $request->endesc;
-         $clinet_product->branch = $request->branch;
+         $clinet_product->description_en= $request->endesc;
+        $clinet_product->status =0;
         if ($request->imgPath != null) {
             $old=     $clinet_product->img ;
        
@@ -335,19 +335,31 @@ class OrdersController extends Controller {
         }
         
          $clinet_product->update();
+        Client_order::where('work_id',$id)->delete();
 
 
 
-
-        $request->session()->flash('alert-success', 'تم بنجاح');
+        $request->session()->flash('alert-success', 'تم التعديل  بنجاح بانتظار موافقة الإدارة');
 
 
         return redirect()->back();
     }
+    public function deleteimg($image,Request $req){
+         $clinet_product=Clinet_product::findorfail($req['post_id']);
+         $images=explode('|', $clinet_product->img);
+         if (($key = array_search($image, $images)) !== false) {
+           unset($images[$key]);
+           }
+         $clinet_product->img=implode("|", $images);
+         $clinet_product->status =0;
+         $clinet_product->save();
+         $req->session()->flash('alert-success', 'تم التعديل  بنجاح  بانتظار موافقة الإدارة');
+         return redirect()->back();
+}
 
     ////delete   Clinet_product
     public function destroy(Request $request, $id) {
-
+         Client_order::where('work_id',$id)->delete();
          $clinet_product =  Clinet_product::findorfail($id);
          $clinet_product->delete();
     }

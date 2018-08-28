@@ -3,18 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\User;
-use App\Country;
-use App\Domain;
-use App\Skill;
-use App\Interset;
-use App\Service;
-use App\User_interset;
-use App\User_service;
-use App\User_skill;
+use App\Notification;
 use App\Setting;
-use App\Qualification;
-use App\Favorite_work;
-use App\Favorite_workplace;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -160,6 +150,11 @@ class UserController extends Controller {
         $user = User::findorfail($user);
         $user->status =0;
         $user->update();
+        $msg = new Notification();
+        $msg->user_id = $user->id;
+        $msg->content = 'تم  حظر حسابك  ' ;
+        $msg->content_e = 'Your account is block ';
+        $msg->save();
       
     }
     
@@ -170,6 +165,11 @@ class UserController extends Controller {
         $user = User::findorfail($user);
         $user->status =1;
         $user->update();
+        $msg = new Notification();
+        $msg->user_id = $user->id;
+        $msg->content = 'تم  فك حظر حسابك  ' ;
+        $msg->content_e = 'Your account is unblock ';
+        $msg->save();
       
     }
 

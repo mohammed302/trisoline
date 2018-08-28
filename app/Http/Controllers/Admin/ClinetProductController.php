@@ -134,8 +134,15 @@ class ClinetProductController extends Controller {
 
     ////delete  product
     public function destroy(Request $request, $id) {
+     
+     
         Client_order::where('work_id', $id)->delete();
         $product = Clinet_product::findorfail($id);
+        $msg = new Notification();
+        $msg->user_id = $product->user_id;
+        $msg->content = 'تم حذف  المنتج  ' . $product->title;
+        $msg->content_e = 'product delete ' . $product->title_e ;
+           $msg->save();
         $product->delete();
     }
 
@@ -148,7 +155,7 @@ class ClinetProductController extends Controller {
         $msg = new Notification();
         $msg->user_id = $product->user_id;
         $msg->content = 'تم قبول المنتج  ' . $product->title;
-        $msg->content_e = 'product accept ' . $product->title;
+        $msg->content_e = 'product accept ' . $product->title_e;
         $msg->save();
     }
 
@@ -167,8 +174,8 @@ class ClinetProductController extends Controller {
 
         $msg = new Notification();
         $msg->user_id = $product->user_id;
-        $msg->content = 'تم رفض المنتج  ' . $product->title . 'بسبب' . $request->name;
-        $msg->content_e = 'product not  accept ' . $product->title . ' ' . $request->name;
+        $msg->content = 'تم رفض المنتج  ' . $product->title . ' بسبب '.' '. $request->name;
+        $msg->content_e = 'product not  accept ' . $product->title_e . ' ' . $request->name;
         $msg->save();
         $request->session()->flash('alert-success', 'تم بنجاح');
 

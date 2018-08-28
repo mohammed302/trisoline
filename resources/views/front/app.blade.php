@@ -723,19 +723,22 @@ margin-top:50px;
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">تسجيل عميل جديد</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+        <!--  <span aria-hidden="true">&times;</span>-->
         </button>
       </div>
       <div class="modal-body">
        <div class="col-lg-12">
                         <div class="margin-left_12">
-                            <form id="registerform" class="contactform style4 clearfix" method="post" action="./contact/contact-process.php" novalidate="novalidate">
+                            <form id="registerform" class="contactform style4 clearfix" method="post"  novalidate="novalidate">
                             <span class="flat-input"><input name="rname"  type="text" placeholder="اسم العميل او الشركة" required="required"></span>
                              <span class="flat-input"><input name="address"  type="text" placeholder="العنوان" required="required"></span>
                              <span class="flat-input"><input name="tel"  type="text" placeholder="رقم الجوال" required="required"></span>
                                 <span class="flat-input"><input name="remail"  type="email" placeholder="البريد الالكتروني" required="required"></span>
                                 <span class="flat-input"><input name="rpassword"  type="password" placeholder="كلمة المرور"></span>
-                                <span class="flat-input"><button name="submit" type="submit" class="flat-button" id="submit" title="انشاء حساب">انشاء حساب</button></span>
+                                <div class="checkbox">
+  <label><input type="checkbox" value="" name='condition'> اوافق على الشروط والأحكام</label>
+</div>
+                                <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="انشاء حساب">انشاء حساب</button></span>
                             </form>
                         </div>      
                     </div>
@@ -888,6 +891,9 @@ $('#registerform').validate({
             required: true,
            
         },
+        condition:{
+           required: true,    
+        },
         remail: {
             required: true,
             email: true
@@ -937,6 +943,9 @@ $('#registerform').validate({
             equalTo: "كلمة المرور غير متطابقة",
             minlength: "طول كلمة قصير يجب ان يكون 6 او كثر"
 
+        },
+         condition:{
+           required: 'المواقفة مطلوبة',    
         },
     },
     submitHandler: function (form) {

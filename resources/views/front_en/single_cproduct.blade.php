@@ -1,7 +1,7 @@
 @extends('front_en.app')
 @section('title', '| '.$work->title_e)
 @section('content')
-
+@if($work->status==1)
     <!-- Page title -->
     <div class="page-title parallax parallax1">
         <div class="section-overlay"></div>
@@ -158,10 +158,39 @@
 
     </section>
 
+@else
+   <div class="page-title parallax parallax1">
+        <div class="section-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading">
+                        <h1 class="title">page is not exist </h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li class="home"><i class="fa fa-home"></i><a href="{{route('fronten.index')}}">Home </a></li>
+                            <li>
+                                
+                             
+                           page is not exist 
+                            
+                                
+                            
+                            </li>
+                        </ul>
+                    </div><!-- /.breadcrumbs -->
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.page-title -->
 
+
+@endif
 
 @endsection
 @section('js')
+@if($work->status==1)
       <script>
                 // Get the modal
                 var modal = document.getElementById('myModal');
@@ -241,4 +270,5 @@ toastr.error('Error');
 }
 });
 </script>
+@endif
         @endsection

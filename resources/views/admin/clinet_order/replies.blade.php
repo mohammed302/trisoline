@@ -19,7 +19,73 @@
             <div class="tools"> </div>
         </div>
         <div class="portlet-body ">
+        <form class="form-horizontal" method="post"  id="myform"
+                  enctype="multipart/form-data" 
+                  action="{{route('clinet.order.creply.post')}}" role="form" >
 
+                {!! csrf_field() !!}
+                <div class="flash-message">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $msg)
+                    @if(Session::has('alert-' . $msg))
+
+                    <p class="alert alert-{{ $msg }}">{{ Session::get('alert-' . $msg) }} <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a></p>
+                    @endif
+                    @endforeach
+                </div> 
+                @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <strong>خطأ!</strong> هناك مشكلة في الاتي.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif	
+                <div class="form-body">
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">
+                            الرد
+
+                        </label>
+                        <div class="col-md-9">
+                            <input type="hidden" value="{{$id}}" name="id">
+                            <script src="https://cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+                            <textarea name="reply" placeholder=""  ></textarea>
+                            <script>
+CKEDITOR.replace('reply');
+                            </script>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">
+                            الملف
+
+                        </label>
+                        <div class="col-md-9">
+                            <input name="imgPath" type="file" accept="image/*" >
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+                <div class="form-actions">
+                    <div class="row">
+                        <div class="col-md-offset-3 col-md-9">
+                            <button type="submit" class="btn blue">إضافة</button>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
             <div class="tic-p">
                 <h1><span style="color:red"> الطلب</span></h1>
                 <div class="tit">
@@ -66,7 +132,7 @@
             <br>
             @foreach($replies as $r)
             @if($r->user_id!=0)
-            <div class="ch-co">
+            <div class="ch-co ch">
                 <div class="im">
                     <a><img src="{{asset('style/orders/imag/ico.jpg')}}" width="40px" height="40px">  {{$r->user->name}}</a>
                     <a  style="float:left"> <?php Carbon\Carbon::setLocale('ar'); ?>
@@ -87,10 +153,10 @@
 
             <hr>
             @else
-            <div class="ch-ad">
+            <div class="ch-ad ch">
 
                 <div class="im">
-                    <a><img src="{{asset('style/orders/imag/ico.jpg')}}" width="40px" height="40px"> {{$r->emp->name}}</a>
+                    <a><img src="{{asset('style/orders/imag/ico.jpg')}}" width="40px" height="40px"> الادارة</a>
                     <a  style="float:left"><?php Carbon\Carbon::setLocale('ar'); ?>
                         {{ Carbon\Carbon::parse($r->time)->diffForHumans() }} </a></div>
                 <hr>
@@ -99,7 +165,7 @@
                 @if($r->img!=null)
                 <span class="dow"> |<a href="{{asset('img/'.$r->img)}}" target="_blank">     الملف المرفق</a></span>
                 @endif
-   <a	href="#"  value='{{route("clinet.order.destroy_replay",["id" =>$r])}}'
+                     <a	href="#"  value='{{route("clinet.order.destroy_replay",["id" =>$r])}}'
                                data-token="{{ csrf_token() }}"
                                data-id="{{ $r->id }}" 
                                class="delete-post-link"
@@ -196,7 +262,7 @@ $('.delete-post-link').on('click', function (e) {
 
                     swal("تم الحذف!", "تم حذف  بنجاح.", "success");
 
-                    $(that).closest('.ch-co').remove();
+                    $(that).closest('.ch').remove();
 
 
                 }

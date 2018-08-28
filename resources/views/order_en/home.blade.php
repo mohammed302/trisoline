@@ -69,8 +69,8 @@
                         </div>
                     </div>
                     <div class="button-m">
-                        <a  href="{{route('orders_en.new')}}" class="btn btn-default" role="button"> new order </a>
-                        <a  href="{{route('orders_en.myoreders')}}" class="btn btn-default" role="button">orders </a>
+                        <a  href="{{route('orders_en.new')}}" class="btn btn-default" role="button"> open ticket </a>
+                        <a  href="{{route('orders_en.myoreders')}}" class="btn btn-default" role="button">tickets </a>
                         <a  href="{{route('orders_en.mycoreders_user')}}" class="btn btn-default" role="button">order Products</a>
                         <a  href="{{route('orders_en.clinet_product')}}" class="btn btn-default" role="button">my product </a>
 

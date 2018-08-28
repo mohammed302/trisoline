@@ -1,7 +1,7 @@
 @extends('front.app')
 @section('title', '| '.$work->title)
 @section('content')
-
+@if($work->status==1)
     <!-- Page title -->
     <div class="page-title parallax parallax1">
         <div class="section-overlay"></div>
@@ -158,10 +158,38 @@
 
     </section>
 
+@else
+   <div class="page-title parallax parallax1">
+        <div class="section-overlay"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="page-title-heading">
+                        <h1 class="title">الصفحة التي طلبتها غير موجودة </h1>
+                    </div><!-- /.page-title-captions -->
+                    <div class="breadcrumbs">
+                        <ul>
+                            <li class="home"><i class="fa fa-home"></i><a href="{{route('front.index')}}">الصفحة الرئيسية</a></li>
+                            <li>
+                                
+                             
+                              الصفحة التي طلبتها غير موجودة
+                            
+                                
+                            
+                            </li>
+                        </ul>
+                    </div><!-- /.breadcrumbs -->
+                </div><!-- /.col-md-12 -->
+            </div><!-- /.row -->
+        </div><!-- /.container -->
+    </div><!-- /.page-title -->
 
 
+@endif
 @endsection
 @section('js')
+@if($work->status==1)
       <script>
                 // Get the modal
                 var modal = document.getElementById('myModal');
@@ -244,4 +272,7 @@ toastr.error('خطأ');
 }
 });
 </script>
+@endif
         @endsection
+       
+        
