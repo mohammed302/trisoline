@@ -152,7 +152,7 @@ class UserController extends Controller {
         $user->update();
         $msg = new Notification();
         $msg->user_id = $user->id;
-        $msg->content = 'تم  حظر حسابك  ' ;
+        $msg->content = 'تم حظر حسابك لمخالفته الشروط والقوانين يمكنك التواصل مع الادارة ' ;
         $msg->content_e = 'Your account is block ';
         $msg->save();
       

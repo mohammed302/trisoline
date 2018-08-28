@@ -140,8 +140,8 @@ class ClinetProductController extends Controller {
         $product = Clinet_product::findorfail($id);
         $msg = new Notification();
         $msg->user_id = $product->user_id;
-        $msg->content = 'تم حذف  المنتج  ' . $product->title;
-        $msg->content_e = 'product delete ' . $product->title_e ;
+        $msg->content = 'تم حذف هذا المنتج  ' . $product->title.'  '.'نهائيا وذلك لمخالفته الشروط والقوانين';
+        $msg->content_e = 'The product'.$product->title_e.' has been totally deleted  , because its break the terms and conditions ' ;
            $msg->save();
         $product->delete();
     }
