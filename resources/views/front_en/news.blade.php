@@ -31,7 +31,7 @@
                         <article class="entry border-shadow clearfix effect-animation"  data-animation="fadeInUp" data-animation-delay="0.2s" data-animation-offset="75%">
                             <div class="entry-border clearfix">
                                 <div class="featured-post">
-                                    <a href="{{route('fronten.news.details',$new->id)}}"> <img src="{{asset('img/'.$new->img)}}" alt="image"></a>
+                                    <a href="{{route('fronten.news.details',$new->id)}}"> <img src="{{asset('img/thumbnail/'.$new->img)}}" alt="image"></a>
                                 </div><!-- /.feature-post -->
                                 <div class="content-post">
                                   

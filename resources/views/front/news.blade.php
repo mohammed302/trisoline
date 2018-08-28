@@ -32,7 +32,7 @@
                             <div class="entry-border clearfix">
                                 <div class="featured-post ">
                                     <a href="{{route('front.news.details',$new->id)}}"> 
-                                        <img src="{{asset('img/'.$new->img)}}" alt="image" class="img-responsive" style=""></a>
+                                        <img src="{{asset('img/thumbnail/'.$new->img)}}" alt="image" class="img-responsive" style=""></a>
                                 </div><!-- /.feature-post -->
                                 <div class="content-post">
                                   
