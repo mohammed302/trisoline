@@ -57,7 +57,20 @@
 
                         </div>
                     </div>
+  <div class="form-group">
+                        <label class="col-md-3 control-label">
+السبب بالانجليزي
 
+                        </label>
+                        <div class="col-md-3">
+
+                            <input type="text" class="form-control input-medium" 
+                                   name="name_e"    placeholder="السبب "
+                                   required="" 
+                                   >
+
+                        </div>
+                    </div>
 
 
 
@@ -111,6 +124,10 @@
         messages: {// custom messages for radio buttons and checkboxes
 
             name: {
+                required: "يرجى ادخال السبب"
+
+            },
+             name_e: {
                 required: "يرجى ادخال السبب"
 
             },

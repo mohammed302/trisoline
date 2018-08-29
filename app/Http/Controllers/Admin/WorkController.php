@@ -138,5 +138,15 @@ class WorkController extends Controller {
         $work = Work::findorfail($id);
         $work->delete();
     }
-
+      public function deleteimg($image,Request $req){
+         $product=Work::findorfail($req['post_id']);
+         $images=explode('|', $product->img);
+         if (($key = array_search($image, $images)) !== false) {
+           unset($images[$key]);
+           }
+         $product->img=implode("|", $images);
+         $product->save();
+         $req->session()->flash('alert-success', 'تم التعديل  بنجاح  ');
+         return redirect()->back();
+}
 }

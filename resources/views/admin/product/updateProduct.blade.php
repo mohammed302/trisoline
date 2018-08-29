@@ -19,12 +19,7 @@
 
         </div>
         <div class="portlet-body form">
-            <form class="form-horizontal" method="post"  id="myform"
-                  enctype="multipart/form-data" 
-                  action="{{route('products.update',$product)}}" role="form">
-                <input type="hidden" name="_method" value="put">
-                {!! csrf_field() !!}
-                <div class="flash-message">
+            <div class="flash-message">
                     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                     @if(Session::has('alert-' . $msg))
 
@@ -32,6 +27,42 @@
                     @endif
                     @endforeach
                 </div> 
+            <?php $temp = explode('|', $product->img); ?>
+            <?php $i = 0 ?> 
+            
+            @if($product->img!=1)
+            @foreach($temp as $te)
+            <div class="col-lg-12 col-md-12 col-sm-12 imgbox" style="
+                 margin-bottom: 20px;
+                 ">
+                <div class="portfolio-box">
+                   
+                    <img src="{{asset('img/'.$te)}}" alt="vidoes"  style="height: 150px;width: 200px;margin-top: 20px;" class="img1 img-responsive">
+               
+
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <form action="{{route('products.image.delete',$te)}}" method="get">
+
+                                {!! csrf_field() !!}
+                                <input type="hidden"  name="post_id" value="{{$product->id}}"/>
+
+                                <button type="submit" class="btn btn-danger"  name="submit{{$i}}">حذف</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php $i++; ?>
+            @endforeach
+            @endif
+            <form class="form-horizontal" method="post"  id="myform"
+                  enctype="multipart/form-data" 
+                  action="{{route('products.update',$product)}}" role="form">
+                <input type="hidden" name="_method" value="put">
+                {!! csrf_field() !!}
+                
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>خطأ!</strong> هناك مشكلة في الاتي.<br><br>
@@ -43,34 +74,27 @@
                 </div>
                 @endif	
                 <div class="form-body">
+
                     <div class="form-group">
                         <label class="control-label col-md-3">الصورة </label>
                         <div class="col-md-9">
-                         <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <div class="fileinput-preview thumbnail" data-trigger="fileinput"
                                      style="width: 200px;  overflow: hidden;">
-                               <?php $temp  = explode('|',$product->img );?>
-       <?php $i=0?> 
-        
-       @foreach($temp as $te)
-     
-          <img src="{{asset('img/'.$te)}}" style="height:100px;margin-top: 10px;" class="img1 img-responsive">
-     
-       <?php $i++; ?>
-       @endforeach
-      
+
+
                                 </div>
                                 <div>
                                     <span class="btn default btn-file">
 
-                                         <input type="file" name="imgPath[]" accept="image/*"  multiple>
+                                        <input type="file" name="imgPath[]" accept="image/*"  multiple>
                                     </span>
                                     <a href="#" class="btn default fileinput-exists" data-dismiss="fileinput">
                                         حذف
                                     </a>
                                 </div>
                             </div>
-                               <button class="add_more">  اضافة صورة أخر</button>
+                            <button class="add_more">  اضافة صورة أخر</button>
                         </div>
                     </div>
                     <div class="form-group">
@@ -197,7 +221,7 @@ CKEDITOR.replace('endesc');
 
 
 <script>
-      $('.add_more').click(function(e){
+    $('.add_more').click(function (e) {
         e.preventDefault();
         $(this).before(" <br><label class='btn btn-default btn-file'><input name='imgPath[]' type='file' /> </label>");
     });
@@ -293,7 +317,7 @@ CKEDITOR.replace('endesc');
         }
 
     });
-//just for the demos, avoids form submit
+    //just for the demos, avoids form submit
 
 
 </script>

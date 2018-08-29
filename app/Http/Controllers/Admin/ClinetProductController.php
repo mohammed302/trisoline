@@ -175,7 +175,7 @@ class ClinetProductController extends Controller {
         $msg = new Notification();
         $msg->user_id = $product->user_id;
         $msg->content = 'تم رفض المنتج  ' . $product->title . ' بسبب '.' '. $request->name;
-        $msg->content_e = 'product not  accept ' . $product->title_e . ' ' . $request->name;
+        $msg->content_e = 'product not  accept ' . $product->title_e . ' for ' . $request->name_e;
         $msg->save();
         $request->session()->flash('alert-success', 'تم بنجاح');
 

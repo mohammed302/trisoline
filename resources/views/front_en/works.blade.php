@@ -80,7 +80,7 @@
                                             {{$work->title_e}}
                                                   <br>  @if($work->branch==1)
                   Saudi Arabia
-                  @elseif($work->branch=2)
+                  @elseif($work->branch==2)
                   China
                   @else
                Turkey
@@ -125,12 +125,13 @@
                                              
                                             
                                                  href="{{route('fronten.product.details',$work->id)}}"
-                                            "> {{$work->title_e}}  <br>  @if($work->branch==1)
+                                            "> {{$work->title_e}}  <br> 
+                                                    @if($work->branch==1)
                   Saudi Arabia
-                  @elseif($work->branch=2)
+                  @elseif($work->branch==2)
                   China
                   @else
-               Turkey
+                  Turkey
                   @endif  </a></h2>
                                           
                                             <a

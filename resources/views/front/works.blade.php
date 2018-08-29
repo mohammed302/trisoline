@@ -70,7 +70,8 @@
                                                 href="{{route('front.work.details',$work->id)}}"
                                                 @else
                                                  href="{{route('front.product.details',$work->id)}}"
-                                                @endif"> {{$work->title}}   <br>  @if($work->branch==1)
+                                                @endif"> {{$work->title}}   <br> 
+                                                    @if($work->branch==1)
                   السعودية
                   @elseif($work->branch==2)
                   الصين

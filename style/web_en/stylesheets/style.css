@@ -1024,6 +1024,11 @@ h6 { font-size: 16px; line-height: 18px; }
    	text-align: left;
    	z-index: 9999;
 }
+#mainnav.style2 ul.submenu > li > a:hover {
+    
+    text-decoration: none !Important;     
+
+}
 
 /* Right sub-menu */
 #mainnav ul.right-sub-menu {

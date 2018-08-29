@@ -288,7 +288,11 @@ Route::group(['prefix' => 'admin-cpx', 'namespace' => 'Admin'], function() {
     Route::get('/creplies/{id}', 'ClinetOrderController@replies')->name('clinet.order.replies');
     Route::get('clinet_orders/destroy_replay/{id}', 'ClinetOrderController@destroy_replay')->name('clinet.order.destroy_replay');
     Route::post('creply/', 'ClinetOrderController@reply')->name('clinet.order.creply.post');
-    
+   //
+     //delete image
+    Route::get('/products/images/{images}','ProductController@deleteimg')->name('products.image.delete');
+     Route::get('/works/images/{images}','WorkController@deleteimg')->name('works.image.delete');
+    //
 });
 
 
@@ -304,6 +308,7 @@ Route::group(['namespace' => 'Admin'], function() {
     Route::resource('admin-cpx/faqs', 'FaqController');
     Route::resource('admin-cpx/works', 'WorkController');
     Route::resource('admin-cpx/products', 'ProductController');
+     
     Route::resource('admin-cpx/client_products', 'ClinetProductController');
     Route::get('/admin-cpx/accept/{id}','ClinetProductController@accept')->name('clientProduct.accept');
      Route::get('/admin-cpx/reject/{id}','ClinetProductController@rejectPage')->name('clientProduct.rejectPage');

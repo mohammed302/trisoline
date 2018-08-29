@@ -19,12 +19,7 @@
 
         </div>
         <div class="portlet-body form">
-            <form class="form-horizontal" method="post"  id="myform"
-                  enctype="multipart/form-data" 
-                  action="{{route('works.update',$work)}}" role="form">
-                <input type="hidden" name="_method" value="put">
-                {!! csrf_field() !!}
-                <div class="flash-message">
+            <div class="flash-message">
                     @foreach (['danger', 'warning', 'success', 'info'] as $msg)
                     @if(Session::has('alert-' . $msg))
 
@@ -32,6 +27,43 @@
                     @endif
                     @endforeach
                 </div> 
+            <?php $temp = explode('|', $work->img); ?>
+            <?php $i = 0 ?> 
+            
+            @if($work->img!=1)
+            @foreach($temp as $te)
+            <div class="col-lg-12 col-md-12 col-sm-12 imgbox" style="
+                 margin-bottom: 20px;
+                 ">
+                <div class="portfolio-box">
+                    <?php $info = pathinfo(asset('img/' . $te)) ?>
+                  
+                    <img src="{{asset('img/'.$te)}}" alt="vidoes"  style="height: 150px;width: 200px;margin-top: 20px;" class="img1 img-responsive">
+                  
+
+                    <div class="portfolio-box-caption">
+                        <div class="portfolio-box-caption-content">
+                            <form action="{{route('works.image.delete',$te)}}" method="get">
+
+                                {!! csrf_field() !!}
+                                <input type="hidden"  name="post_id" value="{{$work->id}}"/>
+
+                                <button type="submit" class="btn btn-danger"  name="submit{{$i}}">حذف</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php $i++; ?>
+            @endforeach
+            @endif
+            <form class="form-horizontal" method="post"  id="myform"
+                  enctype="multipart/form-data" 
+                  action="{{route('works.update',$work)}}" role="form">
+                <input type="hidden" name="_method" value="put">
+                {!! csrf_field() !!}
+         
                 @if (count($errors) > 0)
                 <div class="alert alert-danger">
                     <strong>خطأ!</strong> هناك مشكلة في الاتي.<br><br>

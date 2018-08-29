@@ -8,7 +8,7 @@
         <a href="{{route('orders_en.index')}}" rel="home">
             <img src="{{ asset('img/'.$setting->logo)}}" alt="image">
         </a>
-        <h1>قسم<span style="color:red"> my product</span></h1>
+        <h1><span style="color:red"> my product</span></h1>
             <div class="button-m">  
          @if(Auth::user()->status==1)
                 <a  href="{{route('orders_en.new_product')}}" class="btn btn-default" role="button">  Add new product </a>
