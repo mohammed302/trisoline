@@ -102,6 +102,7 @@ class HomeEnController extends Controller {
         $data['setting'] = Setting::find(1);
         $data['t'] = 1;
         $data['id'] = $id;
+        $data['all']=0;
         $data['works'] = Work::where('branch', $id)->orderby('id', 'desc')->paginate(10);
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front_en.works', $data);
@@ -124,6 +125,7 @@ class HomeEnController extends Controller {
         $data['home_setting'] = Home_setting::find(1);
         $data['setting'] = Setting::find(1);
         $data['t'] = 2;
+         $data['all']=0;
         $data['works'] = Product::orderby('id', 'desc')->paginate(10);
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front_en.works', $data);
@@ -135,6 +137,7 @@ class HomeEnController extends Controller {
         $data['home_setting'] = Home_setting::find(1);
         $data['setting'] = Setting::find(1);
         $data['t'] = 2;
+         $data['all']=0;
         $data['id'] = $id;
         $data['works'] = Product::where('branch', $id)->orderby('id', 'desc')->paginate(10);
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);

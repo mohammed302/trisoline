@@ -1,5 +1,5 @@
 @extends('front.app')
-@section('title', '|      منتجات العملاء  ')
+@section('title', '|      منتجات   ')
 @section('content')
     <!-- Page title -->
     <div class="page-title parallax parallax1">
@@ -10,7 +10,7 @@
                     <div class="page-title-heading">
                         <h1 class="title">
                             
-                           منتجات العملاء
+                           منتجات 
                               
                      </h1>
                     </div><!-- /.page-title-captions -->  
@@ -18,7 +18,7 @@
                         <ul>
                             <li class="home"><i class="fa fa-home"></i><a href="{{route('front.index')}}">الصفحة الرئيسية</a></li>
                             <li>
-                                       منتجات العملاء
+                                       منتجات 
                         </ul>                   
                     </div><!-- /.breadcrumbs --> 
                 </div><!-- /.col-md-12 -->  

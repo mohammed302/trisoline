@@ -114,7 +114,7 @@
                   <p class="imagebox-category">
                   @if($work->branch==1)
                   Saudi Arabia
-                  @elseif($work->branch=2)
+                  @elseif($work->branch==2)
                   China
                   @else
                Turkey

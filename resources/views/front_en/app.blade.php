@@ -384,7 +384,7 @@ product-slider { padding: 45px; }
                             <ul class="flat-information style2 before-white float-left title-com">
                                   <li ><a style="
     font-size: 21px;
-" href="{{route('front.index')}}">{{$setting->namee}}</a></li>
+" href="{{route('fronten.index')}}">{{$setting->namee}}</a></li>
                             </ul>
                         </div>
                     </div><!-- /.col-md-7 -->       
@@ -470,7 +470,7 @@ product-slider { padding: 45px; }
                                         <li  class=" @if(Request::segment(2)=='works' )
                             active
                             @endif" ><a href="{{route('fronten.works')}}">Projects</a></li>
-                               <li  class=" @if(Request::segment(2)=='works' )
+                               <li  class=" @if(Request::segment(2)=='cproduct' )
                             active
                             @endif" ><a href="{{route('fronten.cproducts')}}"> Products</a></li>
                                         <li  class=" @if(Request::segment(2)=='branch' )
