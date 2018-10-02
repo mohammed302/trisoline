@@ -36,6 +36,21 @@
 
     <!-- Favicon and touch icons  -->
     <style>
+           #imaginary_container{
+    margin-top:20%; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
      .caret{
         display: none !important;
     }
@@ -470,9 +485,12 @@ product-slider { padding: 45px; }
                                         <li  class=" @if(Request::segment(2)=='works' )
                             active
                             @endif" ><a href="{{route('fronten.works')}}">Projects</a></li>
-                               <li  class=" @if(Request::segment(2)=='cproduct' )
+                             
+                             <li  class=" @if(Request::segment(2)=='cproduct' )
                             active
-                            @endif" ><a href="{{route('fronten.cproducts')}}"> Products</a></li>
+                            @endif "><a href="{{route('fronten.cproducts')}}">Products</a>
+                                        	
+                                        </li>
                                         <li  class=" @if(Request::segment(2)=='branch' )
                             active
                             @endif "><a >Branch</a>
@@ -559,7 +577,7 @@ product-slider { padding: 45px; }
 
                         </ul>
                         <ul class="one-half">
-                            <li><a href="{{route('fronten.news')}}">News</a></li>
+                              <li><a href="{{route('fronten.how_to')}}">How To </a></li>
                             <li><a href="{{route('fronten.faqs')}}">Faqs </a></li>
                             <li><a href="{{route('fronten.conditions')}}">Trems </a></li>
                             <li><a href="{{route('fronten.contact')}}">Contact us </a></li>
@@ -670,6 +688,8 @@ product-slider { padding: 45px; }
                             <form id="loginform" class="contactform style4 clearfix" method="post" action="{{route('login')}}" novalidate="novalidate">
                                 <span class="flat-input"><input name="email" id="email" type="email" placeholder="Email " required="required"></span>
                                 <span class="flat-input"><input name="password" id="password" type="password" placeholder="Password "></span>
+                                
+                                
                                 <span class="flat-input"><button name="submit" type="submit" class="flat-button" id="submit" title=" Logon">Logon</button></span>
                           {{ csrf_field() }}
                           <a href="{{ route('usersen.forget') }}"> Forget Password</a>
@@ -701,8 +721,13 @@ product-slider { padding: 45px; }
                                 <span class="flat-input"><input name="remail"  type="email" placeholder="Email" required="required"></span>
                                 <span class="flat-input"><input name="rpassword"  type="password" placeholder="Password"></span>
                                  <div class="checkbox">
-  <label><input type="checkbox" value="" name='condition'>  Agree conditions  </label>
+                            <label><input type="checkbox" value="" name='condition'>  Agree conditions  </label>
 </div>
+                                  <br>
+                  <div class="g-recaptcha" data-sitekey="6LdsvXIUAAAAABGjouVUx83KdOySe2cliSButaYz"></div>
+                   <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+  
+                  <br>         
                                 <span class="flat-input"><button name="submit" type="submit" class="flat-button"  >create </button></span>
                             </form>
                         </div>      
@@ -809,6 +834,7 @@ $('#loginform').validate({
      
     },
     submitHandler: function (form) {
+     //     if (grecaptcha.getResponse()) {
         var _token = $("input[name='_token']").val();
         var email = $("input[name='email']").val()
         var password = $("input[name='password']").val();
@@ -833,6 +859,11 @@ $('#loginform').validate({
 
             }
         });
+    //}
+        // else {
+         //  toastr.error('captcha is required');
+      
+  //  }
 
     }
 });
@@ -872,7 +903,7 @@ $('#registerform').validate({
        
     },
     submitHandler: function (form) {
-        
+       if (grecaptcha.getResponse()) {  
 
         var _token = $("input[name='_token']").val();
           var name = $("input[name='rname']").val();
@@ -890,7 +921,8 @@ $('#registerform').validate({
             type: 'POST',
             data: {_token: _token, email: email, password: password,name:name,address:address,tel:tel },
             success: function (data) {
-                window.location.href = "{{route('fronten.index')}}";
+            //    window.location.href = "{{route('fronten.index')}}";
+              toastr.success('successfully registere  Activate your account via e-mail');
             },
             error: function (data)
             {
@@ -903,8 +935,11 @@ $('#registerform').validate({
 
 
             }
-        });
-
+        });}
+else {
+        toastr.error('captcha is required');
+      
+    }
     }
 });
 ///
@@ -930,6 +965,7 @@ $('#carousel').carousel({
                 $('#carousel-text').html($('#slide-content-'+id).html());
         });
         </script>
+         <script src='https://www.google.com/recaptcha/api.js'></script>
       @yield('js')
 </body>
 </html>

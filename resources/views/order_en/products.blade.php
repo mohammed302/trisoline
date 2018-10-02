@@ -31,7 +31,7 @@
                     <td>
                         {{$p->title}}
                     </td>
-                    <td> @if($p->status==0)
+                    <td> @if($p->status!=0)
                        Accept
                         @else
                      not accept

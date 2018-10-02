@@ -132,6 +132,17 @@ $(document).submit(function () {
 
 
                         </div>
+                         <div class="open col-lg-12 nopadding ">
+
+                            <select class="form-control" name="branch">
+
+                                <option value="1" @if($product->branch==1) selected="" @endif>Suadi Arabia</option>
+                                <option value="2" @if($product->branch==2) selected="" @endif>China</option>
+                                <option value="3" @if($product->branch==3) selected="" @endif>Turkey</option>
+                            </select>
+
+
+                        </div>
                         <div class="col-lg-12 nopadding">
                             <textarea id="txtEditor" class="message" value="" name="desc"style="
     width: 100%;

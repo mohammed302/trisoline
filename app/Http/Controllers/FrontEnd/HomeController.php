@@ -73,6 +73,15 @@ class HomeController extends Controller {
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front.about_us', $data);
     }
+       ////index howto page
+    public function howto() {
+
+        $data['home_setting'] = Home_setting::find(1);
+        $data['setting'] = Setting::find(1);
+        $data['about_us'] = Page::find(3);
+        $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
+        return view('front.howto', $data);
+    }
 
     ////services page
     public function services() {
@@ -169,7 +178,41 @@ class HomeController extends Controller {
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front.cproducts', $data);
     }
+         //// cproduct page
+    public function cproducts_search(Request $request) {
+
+        if ( $request->search!=null && $request->br==-1 ){
+       $data['products'] = Clinet_product::where('title', 'LIKE', '%' . $request->search. '%')
+        
+        ->where('status',1)->orderby('id', 'desc')->paginate(10);}
+        
+       if ($request->br!=-1 && $request->search==null){
+       $data['products'] = Clinet_product::where('status', 1)->where('branch', $request->br)->orderby('id', 'desc')->paginate(10);
+          
+       }
+       if ($request->br!=-1 && $request->search!=null){
+       $data['products'] = Clinet_product::where('title', 'LIKE', '%' . $request->search. '%')->where('status', 1)->where('branch', $request->id)->orderby('id', 'desc')->paginate(10);
+     
+       }
+     if ( $request->search==null && $request->br==-1 ){
+          $data['products'] = Clinet_product::where('status',1)->orderby('id', 'desc')->paginate(10);  
+           
+       }
+       
     
+        
+        return view('front.search', $data);
+    }
+   
+     //// cproduct branch page
+    public function cproducts_branch($id) {
+
+        $data['home_setting'] = Home_setting::find(1);
+        $data['setting'] = Setting::find(1);
+        $data['products'] = Clinet_product::where('status', 1)->where('branch', $id)->orderby('id', 'desc')->paginate(10);
+        $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
+        return view('front.cproducts', $data);
+    }
     /// cproduct_Details Details page
     public function cproduct_Details($id) {
 

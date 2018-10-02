@@ -25,9 +25,47 @@
             </div><!-- /.row -->  
         </div><!-- /.container -->                      
     </div><!-- /.page-title --> 
-
+<div class="container">
+        <form id="order" class="contactform style4 clearfix" 
+                                  method="post" action="{{route('fronten.cproduct.search')}}" >
+                                {{ csrf_field() }}
+	<div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div id="imaginary_container"> 
+                <div class="input-group stylish-input-group">
+                     
+                    <input type="text" name='search' id="search" class="form-control"  placeholder="Search" >
+                               <select class="form-control" name="br" id="br" style="
+    border-right: 0;
+    box-shadow: 0 0 0;
+    border-color: #ccc;
+    height: 40px;
+">
+                                 <option value="-1">All</option>
+                                <option value="1">  Saudi Arabia</option>
+                                <option value="2">China</option>
+                                <option value="3">Turkey</option>
+                            </select>
+                    <span class="input-group-addon" style="
+    padding: 0;
+">
+                    
+                        <button type="submit">
+                          <i class="fa fa-search"></i>
+                        </button>  
+                    </span>
+                      
+                </div>
+            </div>
+        </div>
+	</div>
+                                          <div id="wait" 
+                                 style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;">
+                                <img src='{{asset('img/ajax-loader.gif')}}' width="64" height="64" /><br>..</div>
+                                   </form>
+</div>
     <!-- Blog posts -->
-    <section class="flat-row section-project-dynamic">
+    <section class="flat-row section-project-dynamic" id="result">
         <div class="container">
             <div class="post-wrap project-dynamic clearfix">
                 <ul id="data-effect" class="data-effect clearfix">
@@ -52,6 +90,14 @@
                                                 
                                                 href="{{route('fronten.cproduct.details',$product->id)}}"
                                              > {{$product->title_e}}   <br>  
+                                                       @if($product->branch==1)
+                                                
+                  Saudi Arabia
+                  @elseif($product->branch==2)
+                  China
+                  @else
+                  Turkey
+                  @endif
                    </a></h2>
                                           
                                             <a
@@ -80,4 +126,30 @@
     @endsection
     @section('js')
       <script src="{{asset('style/web/javascript/jquery.hoverdir.js')}}"></script>
+           <script>
+            $(document).ajaxStart(function(){
+        $("#wait").css("display", "block");
+    });
+    $(document).ajaxComplete(function(){
+        $("#wait").css("display", "none");
+    });
+      $('#order').submit(function(e)
+{   $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $("input[name='_token']").attr('content')
+            }
+        });
+    e.preventDefault();
+    $.ajax({
+        url: $(this).attr('action'),
+        type: 'get',
+         data: {search: $('#search').val(),br:$('#br').val()
+        },
+        success: function(data){
+            $('#result').html(data);
+        }
+    });
+});
+      
+      </script>
     @endsection

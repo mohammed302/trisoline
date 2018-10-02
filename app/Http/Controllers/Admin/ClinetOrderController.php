@@ -21,10 +21,16 @@ class ClinetOrderController extends Controller {
     ////index
     public function index() {
         if (Auth::user()->type == 1) {
-            $data['orders'] = Client_order::orderby('id', 'desc')->get();
+        $data['orders'] = Client_order::orderby('id', 'desc')->get();}
+        else{
+              $data['orders'] = Client_order::whereHas('work', function ($query) {
+    $query->where('branch', Auth::user()->branch);
+         
+})->orderby('id', 'desc')->get();  
+        }
             $data['color'] = Setting::find(1);
             return view('admin.clinet_order.orders', $data);
-        }
+        
     }
 
     ////delete  order

@@ -102,7 +102,22 @@
 
                         </div>
                     </div>
+ <div class="form-group">
+                        <label class="col-md-3 control-label">
+                         الفرع
 
+                        </label>
+                        <div class="col-md-3">
+
+                              <select class="form-control" name="branch">
+
+                                <option value="1" @if($product->branch==1) selected="" @endif>السعودية</option>
+                                <option value="2" @if($product->branch==2) selected="" @endif>الصين</option>
+                                <option value="3" @if($product->branch==3) selected="" @endif>تركيا</option>
+                            </select>
+
+                        </div>
+                    </div>
                     <div class="form-group">
                         <label class="col-md-3 control-label">
                             المحتوى

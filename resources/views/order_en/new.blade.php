@@ -80,7 +80,7 @@ $(document).submit(function () {
 
                             <select class="form-control" name="branch">
 
-                                <option value="1">Riyadh</option>
+                                <option value="1">Suadi Arabia</option>
                                 <option value="2">China</option>
                                 <option value="3">Turkey</option>
                             </select>

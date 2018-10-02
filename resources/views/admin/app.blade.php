@@ -91,7 +91,7 @@
                         @if(Auth::user()->type==2)
 
                         @if(Auth::user()->branch==1)
-                        الرياض
+                        السعودية
                         @elseif(Auth::user()->branch==2)
                         الصين
                         @else
@@ -328,7 +328,7 @@
                             </a>
 
                         </li>
-                          <li class="heading">
+                        <li class="heading">
 
                             <h3 class="uppercase">إدارة منتجات العملاء
                             </h3>
@@ -343,7 +343,7 @@
                             </a>
 
                         </li>
-                         <li class="nav-item  @if(Request::segment(2)=='clinet_orders'  )
+                        <li class="nav-item  @if(Request::segment(2)=='clinet_orders'  )
                             active
                             @endif  ">
                             <a href="{{ Route('admin.clinet.orders')}}" class="nav-link ">
@@ -353,22 +353,22 @@
                             </a>
 
                         </li>
-                     
-                      <!--  <li class="heading">
 
-                            <h3 class="uppercase">إدارة الأعمال
-                            </h3>
-                        </li>
-                        <li class="nav-item  @if(Request::segment(2)=='works'  )
-                            active
-                            @endif  ">
-                            <a href="{{ Route('works.index')}}" class="nav-link ">
-                                <i class="fa fa-book" aria-hidden="true"></i>
-                                <span class="title">  الأعمال
-                                </span>
-                            </a>
-
-                        </li>-->
+                        <!--  <li class="heading">
+  
+                              <h3 class="uppercase">إدارة الأعمال
+                              </h3>
+                          </li>
+                          <li class="nav-item  @if(Request::segment(2)=='works'  )
+                              active
+                              @endif  ">
+                              <a href="{{ Route('works.index')}}" class="nav-link ">
+                                  <i class="fa fa-book" aria-hidden="true"></i>
+                                  <span class="title">  الأعمال
+                                  </span>
+                              </a>
+  
+                          </li>-->
                         <li class="heading">
 
                             <h3 class="uppercase">إدارة الطلبات
@@ -442,6 +442,16 @@
                             </a>
 
                         </li>
+                        <li class="nav-item  @if( Request::segment(4)=='3'  )
+                            active
+                            @endif  ">
+                            <a href="{{ Route('page.edit',3)}}" class="nav-link ">
+                                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                <span class="title">   تعليمات الاستخدام </span>
+                            </a>
+
+                        </li>
+
                         @elseif(Auth::user()->type==2)
                         <li class="nav-item start @if(Request::segment(2)=='') 
                             active 
@@ -508,7 +518,31 @@
                             </a>
 
                         </li>
+                        <li class="heading">
 
+                            <h3 class="uppercase">إدارة منتجات العملاء
+                            </h3>
+                        </li>
+                        <li class="nav-item  @if(Request::segment(2)=='client_products'  )
+                            active
+                            @endif  ">
+                            <a href="{{ Route('client_products.index')}}" class="nav-link ">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <span class="title">   منتجات العملاء 
+                                </span>
+                            </a>
+
+                        </li>
+                        <li class="nav-item  @if(Request::segment(2)=='clinet_orders'  )
+                            active
+                            @endif  ">
+                            <a href="{{ Route('admin.clinet.orders')}}" class="nav-link ">
+                                <i class="fa fa-book" aria-hidden="true"></i>
+                                <span class="title">  طلبات منتجات العملاء  
+                                </span>
+                            </a>
+
+                        </li>
                         <li class="heading">
 
                             <h3 class="uppercase">إدارة الأعمال

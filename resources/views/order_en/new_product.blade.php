@@ -89,6 +89,17 @@ $(document).submit(function () {
 
 
                         </div>
+                            <div class="open col-lg-12 nopadding ">
+
+                            <select class="form-control" name="branch">
+
+                              <option value="1">Suadi Arabia</option>
+                                <option value="2">China</option>
+                                <option value="3">Turkey</option>
+                            </select>
+
+
+                        </div>
                         <div class="col-lg-12 nopadding">
                             <textarea id="txtEditor" class="message" name="desc"></textarea> 
                         </div>

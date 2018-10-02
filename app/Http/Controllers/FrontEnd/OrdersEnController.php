@@ -274,6 +274,7 @@ class OrdersEnController extends Controller {
         $clinet_product = new Clinet_product();
         $clinet_product->title = $request->title;
         $clinet_product->title_e = $request->title_e;
+        $clinet_product->branch = $request->branch;
         $clinet_product->description = $request->desc;
         $clinet_product->description_en = $request->endesc;
         $clinet_product->status = 0;
@@ -326,6 +327,7 @@ class OrdersEnController extends Controller {
         $clinet_product = Clinet_product::findorfail($id);
         $clinet_product->title = $request->title;
         $clinet_product->title_e = $request->title_e;
+         $clinet_product->branch = $request->branch;
         $clinet_product->description = $request->desc;
         $clinet_product->description_en = $request->endesc;
         if ($request->imgPath != null) {

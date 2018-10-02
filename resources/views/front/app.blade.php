@@ -38,6 +38,21 @@
 
     <link href="{{asset('style/web/icon/favicon.png')}}" rel="icon">
 <style>
+    #imaginary_container{
+    margin-top:20%; /* Don't copy this */
+}
+.stylish-input-group .input-group-addon{
+    background: white !important; 
+}
+.stylish-input-group .form-control{
+	border-right:0; 
+	box-shadow:0 0 0; 
+	border-color:#ccc;
+}
+.stylish-input-group button{
+    border:0;
+    background:transparent;
+}
     .caret{
         display: none !important;
     }
@@ -511,9 +526,13 @@ margin-top:50px;
                                         <li  class=" @if(Request::segment(1)=='works' )
                             active
                             @endif" ><a href="{{route('front.works')}}">اعمالنا</a></li>
-                                  <li class=" @if(Request::segment(1)=='about_us' )
+                               <li  class=" @if(Request::segment(2)=='cproduct' )
                             active
-                            @endif "><a href="{{route('front.cproducts')}}">المنتجات  </a></li>
+                            @endif "><a  href="{{route('front.cproducts')}}" >المنتجات</a>
+                                        
+                                               
+                                           
+                                        </li>
                                         <li  class=" @if(Request::segment(1)=='branch' )
                             active
                             @endif "><a >الفروع</a>
@@ -600,7 +619,7 @@ margin-top:50px;
 
                         </ul>
                         <ul class="one-half">
-                            <li><a href="{{route('front.news')}}">الأخبار</a></li>
+                            <li><a href="{{route('front.how_to')}}">تعليمات الاستخدام</a></li>
                             <li><a href="{{route('front.faqs')}}">الأسئلة الشائعة</a></li>
                             <li><a href="{{route('front.conditions')}}">الشروط والقوانين</a></li>
                             <li><a href="{{route('front.contact')}}">اتصل بنا</a></li>
@@ -711,8 +730,17 @@ margin-top:50px;
                             <form id="loginform" class="contactform style4 clearfix" method="post" action="{{route('login')}}" novalidate="novalidate">
                                 <span class="flat-input"><input name="email" id="email" type="email" placeholder="البريد الالكتروني" required="required"></span>
                                 <span class="flat-input"><input name="password" id="password" type="password" placeholder="كلمة المرور"></span>
-                                <span class="flat-input"><button name="submit" type="submit" class="flat-button" id="submit" title="تسجيل الدخول">تسجيل الدخول</button></span>
+                               
+                                 <br>
+                 <!-- <div class="g-recaptcha" data-sitekey="6LdsvXIUAAAAABGjouVUx83KdOySe2cliSButaYz"></div>
+                   <input type="hidden" class="hiddenRecaptcha required" name="hiddenRecaptcha" id="hiddenRecaptcha">
+  -->
+                  <br>          
+                  <span class="flat-input"><button name="submit" type="submit" class="flat-button" id="submit" title="تسجيل الدخول">تسجيل الدخول</button></span>
                           {{ csrf_field() }}
+                      
+
+
                           <a href="{{route('users.forget')}}">نسيت كلمة المرور</a>
                             </form>
                         </div>      
@@ -744,7 +772,16 @@ margin-top:50px;
                                 <div class="checkbox">
   <label><input type="checkbox" value="" name='condition'> اوافق على الشروط والأحكام</label>
 </div>
+                                  <br>
+                  <div class="g-recaptcha gr" data-sitekey="6LdsvXIUAAAAABGjouVUx83KdOySe2cliSButaYz" required="" ></div>
+                   <input type="hidden" class="hiddenRecaptcha" required="" name="hiddenRecaptcha" id="hiddenRecaptcha">
+  
+                  <br>   
                                 <span class="flat-input"><button name="submit" type="submit" class="flat-button"  title="انشاء حساب">انشاء حساب</button></span>
+                       
+                                  <div id="wait" 
+                                 style="display:none;width:69px;height:89px;border:1px solid black;position:absolute;top:50%;left:50%;padding:2px;">
+                                <img src='{{asset('img/ajax-loader.gif')}}' width="64" height="64" /><br>..</div>
                             </form>
                         </div>      
                     </div>
@@ -792,14 +829,35 @@ margin-top:50px;
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.16.0/additional-methods.min.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet"/>
-  <script>
-        
+ <script type="text/javascript">
+  var CaptchaCallback = function() {
+    jQuery('.g-recaptcha').each(function(index, el) {
+        grecaptcha.render(el, {
+            'sitekey' : jQuery(el).attr('data-sitekey')
+            ,'theme' : jQuery(el).attr('data-theme')
+            ,'size' : jQuery(el).attr('data-size')
+            ,'tabindex' : jQuery(el).attr('data-tabindex')
+            ,'callback' : jQuery(el).attr('data-callback')
+            ,'expired-callback' : jQuery(el).attr('data-expired-callback')
+            ,'error-callback' : jQuery(el).attr('data-error-callback')
+        });
+    });
+  };
+</script>
+        <script>
+        $(document).ajaxStart(function(){
+        $("#wait").css("display", "block");
+    });
+    $(document).ajaxComplete(function(){
+        $("#wait").css("display", "none");
+    });
 $('#emailform').validate({
 rules: {
     femail: {
 required: true,
 email:true
 },
+
 
 },
 messages: {
@@ -849,7 +907,16 @@ $('#loginform').validate({
         password: {
             required: true,
             minlength: 6
-        }
+        },
+         hiddenRecaptcha: {
+                required: function () {
+                    if (grecaptcha.getResponse() == '') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
     },
     messages: {
         email: {
@@ -863,7 +930,8 @@ $('#loginform').validate({
         }
     },
     submitHandler: function (form) {
-        var _token = $("input[name='_token']").val();
+     //    if (grecaptcha.getResponse()) {
+       var _token = $("input[name='_token']").val();
         var email = $("input[name='email']").val()
         var password = $("input[name='password']").val();
 
@@ -887,6 +955,11 @@ $('#loginform').validate({
 
             }
         });
+   // } else {
+      //     toastr.error('التحقق البشري مطلوب');
+      
+   // }
+      
 
     }
 });
@@ -921,6 +994,15 @@ $('#registerform').validate({
             minlength: 6,
             equalTo: "#password"
         },
+         hiddenRecaptcha: {
+                required: function () {
+                    if (grecaptcha.getResponse() === '') {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
     },
     messages: {
          rname: {
@@ -955,7 +1037,7 @@ $('#registerform').validate({
         },
     },
     submitHandler: function (form) {
-        
+      if (grecaptcha.getResponse()) {
 
         var _token = $("input[name='_token']").val();
           var name = $("input[name='rname']").val();
@@ -973,7 +1055,8 @@ $('#registerform').validate({
             type: 'POST',
             data: {_token: _token, email: email, password: password,name:name,address:address,tel:tel },
             success: function (data) {
-                window.location.href = "{{route('front.index')}}";
+               // window.location.href = "{{route('front.index')}}";
+                  toastr.success('تم التسجيل بنجاح قم بتفعيل حسابك عبر البريد الإلكتروني');
             },
             error: function (data)
             {
@@ -988,6 +1071,11 @@ $('#registerform').validate({
             }
         });
 
+     } else {
+           toastr.error('التحقق البشري مطلوب');
+      
+    }
+    
     }
 });
 //
@@ -1019,6 +1107,8 @@ $('#registerform').validate({
                      pause: true,
         });
         </script>
+        <script src="https://www.google.com/recaptcha/api.js?onload=CaptchaCallback&render=explicit" async defer></script>
+
       @yield('js')
 </body>
 </html>

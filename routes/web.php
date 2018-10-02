@@ -102,6 +102,8 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     Route::get('/', 'HomeController@index')->name('front.index');
     //about  page
     Route::get('about_us/', 'HomeController@about_us')->name('front.about_us');
+     //how to  page
+    Route::get('how_to/', 'HomeController@howto')->name('front.how_to');
     //services  page
     Route::get('services/', 'HomeController@services')->name('front.services');
     //works  page
@@ -122,8 +124,11 @@ Route::group(['namespace' => 'FrontEnd'], function() {
      // cproduct
       //cproduct  page
     Route::get('cproduct/', 'HomeController@cproducts')->name('front.cproducts');
+      //products branch page
+    Route::get('cproducts_branch/{id}', 'HomeController@cproducts_branch')->name('front.cproducts.branch');
         //cproduct details page
     Route::get('cproduct/{id}', 'HomeController@cproduct_Details')->name('front.cproduct.details');
+    Route::get('cproduct_search', 'HomeController@cproducts_search')->name('front.cproduct.search');
     Route::get('cproduct_order', 'HomeController@cproduct_order')->name('front.cproduct.order');
     //bracnh page
    
@@ -156,12 +161,21 @@ Route::group(['namespace' => 'FrontEnd'], function() {
     Route::post('email/', 'HomeController@email_list')->name('front.email');
     //password
     Route::get('/forget', 'HomeController@frogetPassword')->name('users.forget');
+   
+    
 });
+Route::group(['namespace' => 'Auth'], function() {
+    // email activate
+    Route::get('/activate/{token}', 'RegisterController@verify')->name('users.activate'); 
+});
+
 /// en 
 Route::group(['namespace' => 'FrontEnd', 'prefix' => 'en'], function() {
 
     //home page
     Route::get('/', 'HomeEnController@index')->name('fronten.index');
+     //how to  page
+    Route::get('how_to/', 'HomeEnController@howto')->name('fronten.how_to');
     //about  page
     Route::get('about_us/', 'HomeEnController@about_us')->name('fronten.about_us');
     //services  page
@@ -176,6 +190,7 @@ Route::group(['namespace' => 'FrontEnd', 'prefix' => 'en'], function() {
       // products 
       //products  page
     Route::get('products/', 'HomeEnController@products')->name('fronten.products');
+    
          //cproduct details page
     Route::get('cproduct/{id}', 'HomeEnController@cproduct_Details')->name('fronten.cproduct.details');
     Route::post('cproduct_order', 'HomeEnController@cproduct_order')->name('fronten.cproduct.order');
@@ -186,6 +201,9 @@ Route::group(['namespace' => 'FrontEnd', 'prefix' => 'en'], function() {
     Route::get('products/{id}', 'HomeEnController@product_Details')->name('fronten.product.details');
        //cproduct  page
     Route::get('cproduct/', 'HomeEnController@cproducts')->name('fronten.cproducts');
+      //cproducts branch page
+    Route::get('cproducts_branch/{id}', 'HomeEnController@cproducts_branch')->name('fronten.cproducts.branch');
+    Route::get('cproduct_search', 'HomeEnController@cproducts_search')->name('fronten.cproduct.search');
     //bracnh page
     Route::get('branch/{id}', 'HomeEnController@branch')->name('fronten.branch');
     //news  page

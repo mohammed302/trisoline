@@ -26,6 +26,6 @@ class EmailVerification extends Mailable
     public function build()
     {
         return  
-        $this->view('email.verification')->subject('تفعيل حسابك في منصة زاول');
+        $this->view('email.verification')->subject('تفعيل حسابك   ');
     }
 }

@@ -20,8 +20,11 @@ class ClinetProductController extends Controller {
     ////index
     public function index() {
         $data['color'] = Setting::find(1);
-
-        $data['products'] = Clinet_product::orderby('id', 'desc')->get();
+        if (Auth::user()->type == 1) {
+            $data['products'] = Clinet_product::orderby('id', 'desc')->get();
+        } else {
+            $data['products'] = Clinet_product::where('branch', Auth::user()->branch)->orderby('id', 'desc')->get();
+        }
 
 
 
@@ -113,7 +116,7 @@ class ClinetProductController extends Controller {
         $product->title_e = $request->title_e;
         $product->description = $request->desc;
         $product->description_en = $request->endesc;
-
+        $product->branch = $request->branch;
         if ($request->imgPath != null) {
             $old = $product->img;
 
@@ -134,15 +137,15 @@ class ClinetProductController extends Controller {
 
     ////delete  product
     public function destroy(Request $request, $id) {
-     
-     
+
+
         Client_order::where('work_id', $id)->delete();
         $product = Clinet_product::findorfail($id);
         $msg = new Notification();
         $msg->user_id = $product->user_id;
-        $msg->content = 'تم حذف هذا المنتج  ' . $product->title.'  '.'نهائيا وذلك لمخالفته الشروط والقوانين';
-        $msg->content_e = 'The product'.$product->title_e.' has been totally deleted  , because its break the terms and conditions ' ;
-           $msg->save();
+        $msg->content = 'تم حذف هذا المنتج  ' . $product->title . '  ' . 'نهائيا وذلك لمخالفته الشروط والقوانين';
+        $msg->content_e = 'The product' . $product->title_e . ' has been totally deleted  , because its break the terms and conditions ';
+        $msg->save();
         $product->delete();
     }
 
@@ -174,7 +177,7 @@ class ClinetProductController extends Controller {
 
         $msg = new Notification();
         $msg->user_id = $product->user_id;
-        $msg->content = 'تم رفض المنتج  ' . $product->title . ' بسبب '.' '. $request->name;
+        $msg->content = 'تم رفض المنتج  ' . $product->title . ' بسبب ' . ' ' . $request->name;
         $msg->content_e = 'product not  accept ' . $product->title_e . ' for ' . $request->name_e;
         $msg->save();
         $request->session()->flash('alert-success', 'تم بنجاح');

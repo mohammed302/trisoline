@@ -70,6 +70,15 @@ class HomeEnController extends Controller {
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front_en.about_us', $data);
     }
+         //// howto page
+    public function howto() {
+
+        $data['home_setting'] = Home_setting::find(1);
+        $data['setting'] = Setting::find(1);
+        $data['about_us'] = Page::find(3);
+        $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
+        return view('front_en.howto', $data);
+    }
 
     ////services page
     public function services() {
@@ -161,6 +170,40 @@ class HomeEnController extends Controller {
         $data['home_setting'] = Home_setting::find(1);
         $data['setting'] = Setting::find(1);
         $data['products'] = Clinet_product::where('status', 1)->orderby('id', 'desc')->paginate(10);
+        $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
+        return view('front_en.cproducts', $data);
+    }
+           //// cproduct page
+     public function cproducts_search(Request $request) {
+
+        if ( $request->search!=null && $request->br==-1 ){
+       $data['products'] = Clinet_product::where('title_e', 'LIKE', '%' . $request->search. '%')
+        
+        ->where('status',1)->orderby('id', 'desc')->paginate(10);}
+        
+       if ($request->br!=-1 && $request->search==null){
+       $data['products'] = Clinet_product::where('status', 1)->where('branch', $request->br)->orderby('id', 'desc')->paginate(10);
+          
+       }
+       if ($request->br!=-1 && $request->search!=null){
+       $data['products'] = Clinet_product::where('title_e', 'LIKE', '%' . $request->search. '%')->where('status', 1)->where('branch', $request->id)->orderby('id', 'desc')->paginate(10);
+     
+       }
+     if ( $request->search==null && $request->br==-1 ){
+          $data['products'] = Clinet_product::where('status',1)->orderby('id', 'desc')->paginate(10);  
+           
+       }
+       
+    
+        
+        return view('front_en.search', $data);
+    }
+     //// cproduct branch page
+    public function cproducts_branch($id) {
+
+        $data['home_setting'] = Home_setting::find(1);
+        $data['setting'] = Setting::find(1);
+        $data['products'] = Clinet_product::where('status', 1)->where('branch', $id)->orderby('id', 'desc')->paginate(10);
         $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
         return view('front_en.cproducts', $data);
     }

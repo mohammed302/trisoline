@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use Mail;
 use App\User;
 use Validator;
+use App\Setting;
+use App\News;
+use App\Home_setting;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Auth;
@@ -75,10 +78,10 @@ use RegistersUsers;
 
             $user = $this->create($request->all());
             // After creating the user send an email with the random token generated in the create method above
-            // $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
-            // Mail::to($user->email)->send($email);
+            $email = new EmailVerification(new User(['email_token' => $user->email_token, 'name' => $user->name]));
+             Mail::to($user->email)->send($email);
             DB::commit();
-            $this->guard()->login($user);
+           // $this->guard()->login($user);
             return redirect(route('front.index'));
         } catch (Exception $e) {
             DB::rollback();
@@ -121,8 +124,10 @@ use RegistersUsers;
             $data['msg'] = 'تم تفعيل حسابك مسبقاً';
         }
 
-        $data['pages'] = Page::all();
-        return view('web.email', $data);
+        $data['setting'] = Setting::find(1);
+        $data['fnews'] = News::orderby('id', 'desc')->paginate(2);
+        $data['home_setting'] = Home_setting::find(1);
+        return view('front.email_active', $data);
     }
 
 }

@@ -73,7 +73,7 @@ $style = [
                                     <!-- Greeting -->
                                     <h1 style="{{ $style['header-1'] }}">
 {{ $user->name }} <br>
-                                      يسعدنا انضمامك لمنصة زاول ، الرجاء قم بالنقر على الزر ادناه لتفعيل حسابك 
+                                      يسعدنا انضمامك لنا  ، الرجاء قم بالنقر على الزر ادناه لتفعيل حسابك 
 <br>
 
                                     </h1>
@@ -94,7 +94,7 @@ $style = [
                                                 $actionColor = 'button--blue';
                                                 ?>
 
-                                                <a href="{{ url('register/verify/'.$user->email_token) }}"
+                                                <a href="{{ url('activate/'.$user->email_token) }}"
                                                    style="{{ $fontFamily }} {{ $style['button'] }} {{ $style[$actionColor] }}"
                                                    class="button"
                                                    target="_blank">
@@ -107,7 +107,7 @@ $style = [
 <!-- Greeting -->
                                     <h1 style="{{ $style['header-1'] }}">
 و بامكانك نسخ الرابط ولصقه في متصفحك لتفعيل حسابك <br>
-<a href="{{ url('register/verify/'.$user->email_token) }}">{{ url('register/verify/'.$user->email_token) }}</a> 
+<a href="{{ url('register/verify/'.$user->email_token) }}">{{ url('activate/'.$user->email_token) }}</a> 
 <br>
 
                                     </h1>
